@@ -1,0 +1,896 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CareerCue | Academia &amp; Research Collaboration Hub</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ac6",
+            "primary-container": "#2563eb",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#ffffff",
+            "surface": "#f8f9ff",
+            "surface-dim": "#cbdbf5",
+            "surface-bright": "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#eff4ff",
+            "surface-container": "#e5eeff",
+            "surface-container-high": "#dce9ff",
+            "surface-container-highest": "#d3e4fe",
+            "surface-variant": "#d3e4fe",
+            "on-surface": "#0b1c30",
+            "on-surface-variant": "#434655",
+            "background": "#f8f9ff",
+            "on-background": "#0b1c30",
+            "secondary": "#565e74",
+            "secondary-container": "#dae2fd",
+            "on-secondary-container": "#131b2e",
+            "tertiary": "#005a89",
+            "tertiary-container": "#cce5ff",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "outline": "#737686",
+            "outline-variant": "#c3c6d7"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            body: ["Plus Jakarta Sans", "sans-serif"],
+            label: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-[#f8f9ff] font-body text-[#0b1c30] antialiased">
+<!-- Verification & Google Auth Banner -->
+<div class="bg-gradient-to-r from-blue-700 via-primary to-blue-800 text-white text-sm py-2.5 px-4 sm:px-8 border-b border-blue-900/10">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+<div class="flex items-center gap-2.5 flex-wrap justify-center sm:justify-start">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/15 text-xs font-semibold text-white backdrop-blur-sm">
+<span class="material-symbols-outlined text-[16px] text-emerald-300">verified</span>
+          Verified with Google for Education &amp; ORCID
+        </span>
+<span class="text-xs sm:text-sm text-blue-100">Signed in as <strong class="text-white font-semibold">Prof. Elena Rostova</strong> (rostova@stanford.edu)</span>
+<span class="text-xs text-blue-200 hidden md:inline">• Stanford Quantum &amp; Systems Lab</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="inline-flex items-center gap-1.5 text-xs bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-md transition font-medium border border-white/20">
+<svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+<path d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 8.9 5 12 5z" fill="#EA4335"></path>
+<path d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5.1 3.7-8.9z" fill="#4285F4"></path>
+<path d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15.2s.7 5.5 1.9 7.9l3.7-2.9c0-.2 0-.3 0-5.4z" fill="#FBBC05"></path>
+<path d="M12 23.5c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.5-2.3-6.4-5.2L1.9 16.5C3.7 20.2 7.5 23.5 12 23.5z" fill="#34A853"></path>
+</svg>
+          Switch Account / Sign in with Google
+        </button>
+</div>
+</div>
+</div>
+<!-- Primary Top Navigation Bar -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200/80 shadow-sm">
+<div class="max-w-7xl mx-auto h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-2.5" href="#">
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-white shadow-sm font-bold text-lg">
+            C
+          </div>
+<div class="flex flex-col leading-none">
+<span class="font-bold text-lg text-slate-900 tracking-tight">CareerCue</span>
+<span class="text-[11px] font-semibold text-primary tracking-wide uppercase font-label">Faculty &amp; Research</span>
+</div>
+</a>
+<!-- Portal Tabs -->
+<nav class="hidden xl:flex items-center gap-1 bg-slate-100/80 p-1 rounded-lg border border-slate-200">
+<a class="px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 transition" href="#">Main Platform</a>
+<a class="px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 transition" href="#">Student Portal</a>
+<a class="px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 transition" href="#">University &amp; Placement</a>
+<a class="px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 transition" href="#">Enterprise Hiring</a>
+<a aria-current="page" class="px-3 py-1.5 text-xs font-semibold rounded-md bg-white text-primary shadow-sm border border-slate-200/60" href="#">Academia &amp; Research</a>
+</nav>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span>Lab Active: <strong>Stanford Q-Sys</strong></span>
+</div>
+<button class="relative p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition" title="Notifications">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
+</button>
+<div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+<img alt="Prof. Elena Rostova" class="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJQQjuAKaUYEvDvicJJcVOHnoDCPGLfsLBYlmI5tL6F87ncy7C4v9A-VadLlLgre5BEAJpH_Tuq2m4hYhWqKMbTvWZ3TdpEyBge3qSrECJDX4Z_FdTQJcyPQ2xWN-O90_WYDZZBLTcF77M52jbOHGf2Sn2x6trUeDmyCskJC3AAYeVsqIpoyrQDXRXIOCa6TYlXjPolUbx0VEmlLtophTpQF7hzs0my5_YvHYMlUirjRuOQlYCCBHs">
+<div class="hidden lg:flex flex-col leading-tight text-left">
+<span class="text-xs font-semibold text-slate-800">Prof. Elena Rostova</span>
+<span class="text-[11px] text-slate-500">Principal Investigator</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+<!-- Page Header & Key Metrics -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center gap-1 text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-200/80 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-xs">science</span> Research Lab Management
+            </span>
+<span class="text-xs text-slate-500">Department of Applied Physics &amp; CS</span>
+</div>
+<h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+            Academia &amp; Research Hub
+          </h1>
+<p class="text-sm text-slate-600 mt-1 max-w-3xl">
+            Post student fellowships, manage active research projects, review student applications with verified coursework, and monitor research grant budgets.
+          </p>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary-container text-white font-medium text-sm hover:bg-blue-700 transition shadow-sm hover:shadow" id="openWizardBtn">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+            Post New Research Project
+          </button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-700 font-medium text-sm hover:bg-slate-50 transition shadow-sm">
+<span class="material-symbols-outlined text-lg text-slate-500">settings</span>
+            Lab Settings
+          </button>
+</div>
+</div>
+<!-- Overview Cards (Light, Clean Enterprise) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Grants Pool</span>
+<div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">account_balance</span>
+</div>
+</div>
+<div class="my-2">
+<span class="text-3xl font-extrabold text-slate-900">$1,420,000</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-emerald-600 font-medium">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+            NSF &amp; DARPA Sponsored Funds
+          </div>
+</div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Student Fellows</span>
+<div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">school</span>
+</div>
+</div>
+<div class="my-2">
+<span class="text-3xl font-extrabold text-slate-900">25 Fellows</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-slate-600">
+<span class="font-semibold text-slate-800">18 Graduate</span> • 7 Undergraduates
+          </div>
+</div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Paper Submissions</span>
+<div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">menu_book</span>
+</div>
+</div>
+<div class="my-2">
+<span class="text-3xl font-extrabold text-slate-900">5 in Review</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-amber-700 font-medium">
+<span class="material-symbols-outlined text-sm">schedule</span>
+            NeurIPS 2025 &amp; SOSP Cycle
+          </div>
+</div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Project Access Mode</span>
+<div class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">shield</span>
+</div>
+</div>
+<div class="my-2">
+<span class="text-3xl font-extrabold text-slate-900">Dual Mode</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-slate-600">
+            2 Public listings • 1 Confidential Lab
+          </div>
+</div>
+</div>
+</div>
+<!-- Modal Form: Post Research Fellowship & Project -->
+<div class="hidden bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-lg transition-all" id="postWizardModal">
+<div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-50 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">post_add</span>
+</div>
+<div>
+<h2 class="text-xl font-bold text-slate-900">Post New Research Fellowship &amp; Project</h2>
+<p class="text-sm text-slate-500">Define fellowship requirements, stipend, and choose whether it's publicly open or private invitation-only.</p>
+</div>
+</div>
+<button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition" id="closeWizardBtn">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-6" id="fellowshipForm" onsubmit="event.preventDefault(); submitFellowship();">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<div class="md:col-span-2 flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Project / Fellowship Title</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="wizTitle" placeholder="e.g. Asynchronous Microkernel Verification using Coq" required="" type="text" value="FPGA Hardware Acceleration for Tensor Decomposition">
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Academic Department</label>
+<select class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="wizDept">
+<option>Electrical Engineering &amp; Computer Science</option>
+<option>Applied Physics &amp; Mathematics</option>
+<option>Quantum Informatics Laboratory</option>
+<option>Robotics &amp; Autonomous Systems</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Funding Grant Source</label>
+<select class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="wizGrant">
+<option>NSF Cyber-Physical Systems (Grant #CPS-2024-819)</option>
+<option>DARPA DSO Synthesized Autonomy Program</option>
+<option>Simons Foundation Mathematics Fellowship</option>
+<option>Institutional Discretionary Lab Fund</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Fellowship Compensation</label>
+<div class="flex gap-2">
+<input class="w-2/3 px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="wizStipend" placeholder="$32.00 / hr" type="text" value="$34.50 / hr">
+<select class="w-1/3 px-2 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-700 text-xs focus:ring-2 focus:ring-primary outline-none">
+<option>Direct Stipend</option>
+<option>4 Academic Credits</option>
+<option>Hybrid Dual</option>
+</select>
+</div>
+</div>
+<!-- Project Access Toggle Mode in Form -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Project Privacy &amp; Visibility</label>
+<div class="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-lg border border-slate-200">
+<button class="flex items-center justify-center gap-1.5 py-2 text-xs font-semibold rounded bg-white text-primary shadow-sm border border-slate-200 transition-all" id="govPublicBtn" onclick="setGovernance('public')" type="button">
+<span class="material-symbols-outlined text-sm">public</span>
+                Public (Open)
+              </button>
+<button class="flex items-center justify-center gap-1.5 py-2 text-xs font-medium rounded text-slate-600 hover:text-slate-900 transition-all" id="govPrivateBtn" onclick="setGovernance('private')" type="button">
+<span class="material-symbols-outlined text-sm">lock</span>
+                Private (Invite Only)
+              </button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Required Student Skills &amp; Coursework Benchmarks</label>
+<div class="flex flex-wrap items-center gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200">
+<label class="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium text-slate-700 cursor-pointer select-none hover:bg-slate-50">
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox">
+              PyTorch / Distributed ML
+            </label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium text-slate-700 cursor-pointer select-none hover:bg-slate-50">
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox">
+              Differential Equations (RK4)
+            </label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium text-slate-700 cursor-pointer select-none hover:bg-slate-50">
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox">
+              Verilog / FPGA RTL
+            </label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium text-slate-700 cursor-pointer select-none hover:bg-slate-50">
+<input class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox">
+              Quantum Circuit Simulation (Qiskit)
+            </label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium text-slate-700 cursor-pointer select-none hover:bg-slate-50">
+<input class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox">
+              Formal Proofs (Lean 4 / Coq)
+            </label>
+</div>
+</div>
+<div class="flex items-center justify-end gap-3 pt-2">
+<button class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition" onclick="document.getElementById('postWizardModal').classList.add('hidden')" type="button">Cancel</button>
+<button class="px-5 py-2.5 bg-primary-container text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition shadow" type="submit">Publish Project Opportunity</button>
+</div>
+</form>
+</div>
+<!-- Main 2-Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Projects & Active Listings (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Header & Filter Tabs -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200">
+<div>
+<h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+              Research Projects &amp; Fellowships
+            </h2>
+<p class="text-xs text-slate-500">Toggle public student visibility, review applications, and manage student appointments.</p>
+</div>
+<div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200 shrink-0">
+<button class="px-3 py-1 text-xs font-semibold rounded bg-white text-primary shadow-xs">Active (3)</button>
+<button class="px-3 py-1 text-xs font-medium text-slate-600 hover:text-slate-900">Archived (8)</button>
+</div>
+</div>
+<!-- Project Cards List -->
+<div class="flex flex-col gap-4" id="projectListContainer">
+<!-- Project Card 1: Scalable Latent Diffusion -->
+<div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:border-blue-300 transition-all" id="proj-card-1">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-100">
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 rounded-lg bg-blue-50 text-primary font-bold text-sm flex items-center justify-center shrink-0">01</span>
+<div>
+<h3 class="text-base font-bold text-slate-900 leading-snug">Scalable Latent Diffusion for Real-time Video Synthesis</h3>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 mt-1">
+<span>Grant: <strong class="text-slate-700">NSF CPS-901</strong></span>
+<span>•</span>
+<span>Stipend: <strong class="text-slate-700">$32.00 / hr</strong></span>
+<span>•</span>
+<span class="text-primary font-medium">EECS Multi-Modal Core</span>
+</div>
+</div>
+</div>
+<!-- Public / Private Toggle Control -->
+<div class="flex items-center gap-2 self-start sm:self-auto bg-slate-50 p-1 rounded-lg border border-slate-200">
+<span class="px-2.5 py-1 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 flex items-center gap-1" id="badge-proj-1">
+<span class="material-symbols-outlined text-[14px]">public</span> Public (Open to All)
+                </span>
+<button class="text-xs text-slate-600 hover:text-primary px-2 py-1 font-medium transition flex items-center gap-1" onclick="toggleVisibility('proj-1')">
+<span class="material-symbols-outlined text-[15px]">sync_alt</span>
+<span id="btn-text-proj-1">Make Private</span>
+</button>
+</div>
+</div>
+<!-- Applicants & Status Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 py-3.5 my-1 bg-slate-50/80 rounded-lg px-4 border border-slate-100">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-sm">14</div>
+<div>
+<div class="text-xs font-semibold text-slate-800">Student Applicants</div>
+<div class="text-[11px] text-slate-500">Avg. 94% Skill Match</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">2</div>
+<div>
+<div class="text-xs font-semibold text-slate-800">Appointed Fellows</div>
+<div class="text-[11px] text-slate-500">M. Lin-Cheung, S. Kothari</div>
+</div>
+</div>
+<div class="flex items-center sm:justify-end gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-white text-xs font-semibold hover:bg-blue-700 transition shadow-sm">Review Applicant Roster</button>
+</div>
+</div>
+<!-- Skills and Verification Bar -->
+<div class="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">PyTorch Distributed</span>
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">CUDA Kernels</span>
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">Differential Equations</span>
+</div>
+<span class="text-emerald-700 font-medium text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified</span> Verified Transcripts Active
+              </span>
+</div>
+</div>
+<!-- Project Card 2: Microkernel Architecture (Private Example) -->
+<div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:border-blue-300 transition-all" id="proj-card-2">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-100">
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 font-bold text-sm flex items-center justify-center shrink-0">02</span>
+<div>
+<h3 class="text-base font-bold text-slate-900 leading-snug">Formal Verification of Microkernel IPC Architecture</h3>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 mt-1">
+<span>Grant: <strong class="text-slate-700">DARPA DSO Sub-Award</strong></span>
+<span>•</span>
+<span>Stipend: <strong class="text-slate-700">$38.50 / hr</strong></span>
+<span>•</span>
+<span class="text-amber-700 font-medium">Confidential Project</span>
+</div>
+</div>
+</div>
+<!-- Public / Private Toggle Control -->
+<div class="flex items-center gap-2 self-start sm:self-auto bg-slate-50 p-1 rounded-lg border border-slate-200">
+<span class="px-2.5 py-1 rounded text-xs font-semibold bg-rose-100 text-rose-800 flex items-center gap-1" id="badge-proj-2">
+<span class="material-symbols-outlined text-[14px]">lock</span> Private (Invite Only)
+                </span>
+<button class="text-xs text-slate-600 hover:text-primary px-2 py-1 font-medium transition flex items-center gap-1" onclick="toggleVisibility('proj-2')">
+<span class="material-symbols-outlined text-[15px]">sync_alt</span>
+<span id="btn-text-proj-2">Make Public</span>
+</button>
+</div>
+</div>
+<!-- Applicants & Status Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 py-3.5 my-1 bg-slate-50/80 rounded-lg px-4 border border-slate-100">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-sm">6</div>
+<div>
+<div class="text-xs font-semibold text-slate-800">Pre-screened Candidates</div>
+<div class="text-[11px] text-slate-500">Direct Lab Invitations</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-sm">1</div>
+<div>
+<div class="text-xs font-semibold text-slate-800">Interview in Progress</div>
+<div class="text-[11px] text-slate-500">D. O'Reilly (CMU)</div>
+</div>
+</div>
+<div class="flex items-center sm:justify-end gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-semibold hover:bg-slate-900 transition shadow-sm">Review Confidential Roster</button>
+</div>
+</div>
+<!-- Skills and Verification Bar -->
+<div class="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">Coq / Lean 4</span>
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">ARM TrustZone</span>
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">Microkernel IPC</span>
+</div>
+<span class="text-slate-600 font-medium text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-slate-500">verified_user</span> Lab NDA Required
+              </span>
+</div>
+</div>
+<!-- Project Card 3: Quantum Decoherence Calibration -->
+<div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:border-blue-300 transition-all" id="proj-card-3">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-100">
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-700 font-bold text-sm flex items-center justify-center shrink-0">03</span>
+<div>
+<h3 class="text-base font-bold text-slate-900 leading-snug">Fault-Tolerant Quantum Decoherence Calibration</h3>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 mt-1">
+<span>Grant: <strong class="text-slate-700">Quantum Information Science Hub</strong></span>
+<span>•</span>
+<span>Stipend: <strong class="text-slate-700">$36.00 / hr</strong></span>
+<span>•</span>
+<span class="text-emerald-700 font-medium">Open to Joint Institutional Credit</span>
+</div>
+</div>
+</div>
+<!-- Public / Private Toggle Control -->
+<div class="flex items-center gap-2 self-start sm:self-auto bg-slate-50 p-1 rounded-lg border border-slate-200">
+<span class="px-2.5 py-1 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 flex items-center gap-1" id="badge-proj-3">
+<span class="material-symbols-outlined text-[14px]">public</span> Public (Open to All)
+                </span>
+<button class="text-xs text-slate-600 hover:text-primary px-2 py-1 font-medium transition flex items-center gap-1" onclick="toggleVisibility('proj-3')">
+<span class="material-symbols-outlined text-[15px]">sync_alt</span>
+<span id="btn-text-proj-3">Make Private</span>
+</button>
+</div>
+</div>
+<!-- Applicants & Status Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 py-3.5 my-1 bg-slate-50/80 rounded-lg px-4 border border-slate-100">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-sm">29</div>
+<div>
+<div class="text-xs font-semibold text-slate-800">Student Applicants</div>
+<div class="text-[11px] text-slate-500">Top Decile Linear Algebra</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">1</div>
+<div>
+<div class="text-xs font-semibold text-slate-800">Doctoral Lead</div>
+<div class="text-[11px] text-slate-500">R. Thorne (Stanford Q-Lab)</div>
+</div>
+</div>
+<div class="flex items-center sm:justify-end gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-white text-xs font-semibold hover:bg-blue-700 transition shadow-sm">Review Applicant Roster</button>
+</div>
+</div>
+<!-- Skills and Verification Bar -->
+<div class="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">Qiskit</span>
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">Surface Codes</span>
+<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">Cryogenic Control</span>
+</div>
+<span class="text-blue-700 font-medium text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">school</span> Cross-Campus Applications Accepted
+              </span>
+</div>
+</div>
+</div>
+<!-- Activity & Audit Log (Simplified, Human-friendly) -->
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">history</span>
+              Recent Lab Access &amp; Fellowship Activity
+            </h3>
+<span class="text-xs text-slate-500 font-medium">Real-time Activity Log</span>
+</div>
+<div class="divide-y divide-slate-100 text-xs">
+<div class="py-2.5 flex items-center justify-between text-slate-600">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+<strong class="text-slate-800">Project Privacy Changed:</strong>
+<span>"Formal Verification" toggled to Private / Invite-Only by Prof. Elena Rostova</span>
+</div>
+<span class="text-slate-400 font-mono text-[11px]">Today 14:22</span>
+</div>
+<div class="py-2.5 flex items-center justify-between text-slate-600">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<strong class="text-slate-800">Fellow Appointed:</strong>
+<span>Maya Lin-Cheung (GPA 3.98) accepted fellowship on "Latent Diffusion"</span>
+</div>
+<span class="text-slate-400 font-mono text-[11px]">Yesterday 09:10</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Student Research Applicants (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between border-b border-slate-100 pb-3">
+<div>
+<h3 class="text-base font-bold text-slate-900 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-lg">person_search</span>
+                Student Research Applicants
+              </h3>
+<p class="text-xs text-slate-500">Skill-matched candidates awaiting review</p>
+</div>
+<span class="px-2 py-0.5 bg-blue-50 text-primary font-bold text-xs rounded-full">3 New</span>
+</div>
+<!-- Applicant Card 1 -->
+<div class="p-3.5 bg-slate-50/90 rounded-lg border border-slate-200/80 hover:bg-white hover:border-blue-200 transition flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<img alt="Maya Lin-Cheung" class="w-10 h-10 rounded-full object-cover ring-1 ring-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgs3W4ZWve5IW75jNciNi8INDRyEH3scFh2H_4wt4srwexh23LO8sGooQjY3M1DoCK-QNG92LVPVHJV0J7gu7bCxSYEnpt1c82S63iPKCHT9kYqiCV1gDiaEZ8vvUX4h6m9LJHSsecItw1EXz3V_kIcggaeBAN_HxY9SjjPSFVZohBjt4Gzg0mbtVoxrwKiQVIsexsbGLWDt7JQTY-VBEBX6MGaz-t5lBxzcc5MqZ6_k0YF6rOLiix">
+<div>
+<h4 class="text-xs font-bold text-slate-900">Maya Lin-Cheung</h4>
+<p class="text-[11px] text-slate-500">MIT '26 • Math &amp; Computer Science</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs">99% Match</span>
+</div>
+</div>
+<!-- Skill bars -->
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between text-[11px] text-slate-600">
+<span>Paper Comprehension &amp; Proofs</span>
+<span class="font-semibold text-slate-800">Top 0.5%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 98%"></div>
+</div>
+<div class="flex justify-between text-[11px] text-slate-600">
+<span>Matrix Computations (Coursework)</span>
+<span class="font-semibold text-emerald-700">Verified 3.98 GPA</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 96%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-slate-200/60 mt-1">
+<span class="text-[11px] text-slate-500 truncate max-w-[170px]">For: Latent Diffusion</span>
+<button class="px-2.5 py-1 rounded bg-primary-container hover:bg-blue-700 text-white font-medium text-xs transition">Offer Fellowship</button>
+</div>
+</div>
+<!-- Applicant Card 2 -->
+<div class="p-3.5 bg-slate-50/90 rounded-lg border border-slate-200/80 hover:bg-white hover:border-blue-200 transition flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<img alt="David K. O'Reilly" class="w-10 h-10 rounded-full object-cover ring-1 ring-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-tqq0Fr3l6YER6P7YOWS3dQwEkm-p39SYA_5TWgeKh090tlEksSN1z1UaIr75aGCUgMerY0XaB_t7w6wPWa3Z2kLiHq5_IuNTY-zPMDEThzq-2GXvghDcZNflsaQUWhGlDfsmgVoPTFj8rL19fqEZmG9I7ZewU26QS6MK_Kr-H_kV2NR1--2_VRkZKPSV9rOK4E0AwEMgEaQl6Fw_F05Gg9Qvlkb7jA2FKedFyeqlLuJLFys__Xrq">
+<div>
+<h4 class="text-xs font-bold text-slate-900">David K. O'Reilly</h4>
+<p class="text-[11px] text-slate-500">CMU '25 • Hardware Systems</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs">96% Match</span>
+</div>
+</div>
+<!-- Skill bars -->
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between text-[11px] text-slate-600">
+<span>Formal Verification (Lean 4)</span>
+<span class="font-semibold text-slate-800">Top 1.2%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 94%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-slate-200/60 mt-1">
+<span class="text-[11px] text-slate-500 truncate max-w-[170px]">For: Microkernel IPC</span>
+<button class="px-2.5 py-1 rounded bg-primary-container hover:bg-blue-700 text-white font-medium text-xs transition">Offer Fellowship</button>
+</div>
+</div>
+<!-- Information Callout -->
+<div class="bg-blue-50 border border-blue-100 rounded-lg p-3 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-xl shrink-0 mt-0.5">verified</span>
+<p class="text-xs text-blue-900 leading-relaxed">
+              Student applicants are authenticated with official university Google accounts and institutional registries. Verified grades and coursework are validated automatically.
+            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Grant Allocation & Research Milestones Workspace -->
+<div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-50 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">account_tree</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-slate-900">Grant Budget &amp; Research Milestones</h2>
+<p class="text-xs text-slate-500">Track expenditure across student stipends, HPC compute, and manage official recommendation letters.</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 font-medium text-xs hover:bg-slate-50 transition shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-slate-500">history_edu</span>
+            Issue Recommendation Letter
+          </button>
+<button class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 font-medium text-xs hover:bg-slate-50 transition shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-slate-500">download</span>
+            Export NSF Budget Report
+          </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Budget Breakdown Card -->
+<div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Grant Burn Allocation</span>
+<span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">64.8% Remaining</span>
+</div>
+<!-- Clean Circular Graph / Number -->
+<div class="flex items-center justify-center py-3">
+<div class="relative flex items-center justify-center w-32 h-32">
+<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+<path class="text-slate-200" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-primary-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="35.2, 100" stroke-width="3.5"></path>
+<path class="text-indigo-500" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="24, 100" stroke-dashoffset="-35.2" stroke-width="3.5"></path>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-xl font-bold text-slate-900">$499.8k</span>
+<span class="text-[10px] text-slate-500 font-medium">Spent to Date</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-2 pt-2 border-t border-slate-200/80 text-xs">
+<div class="flex items-center justify-between text-slate-600">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Student Fellow Stipends</span>
+<strong class="text-slate-800 font-semibold">$312,400</strong>
+</div>
+<div class="flex items-center justify-between text-slate-600">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Cloud HPC &amp; Compute</span>
+<strong class="text-slate-800 font-semibold">$145,200</strong>
+</div>
+<div class="flex items-center justify-between text-slate-600">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Hardware Prototyping</span>
+<strong class="text-slate-800 font-semibold">$42,200</strong>
+</div>
+</div>
+</div>
+<!-- Project Milestones -->
+<div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Project Milestones</span>
+<span class="text-xs text-primary font-semibold">Q3 Progress</span>
+</div>
+<div class="space-y-2.5">
+<div class="p-2.5 bg-white rounded-lg border border-slate-200 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Proof-of-Concept FPGA RTL</div>
+<div class="text-[11px] text-slate-500">Completed ahead of schedule</div>
+</div>
+</div>
+<span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Completed</span>
+</div>
+<div class="p-2.5 bg-white rounded-lg border border-slate-200 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-blue-600 text-lg">edit_document</span>
+<div>
+<div class="text-xs font-bold text-slate-800">NeurIPS Draft Manuscript</div>
+<div class="text-[11px] text-slate-500">Section 4 (Empirical Results) open</div>
+</div>
+</div>
+<span class="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">v0.92</span>
+</div>
+<div class="p-2.5 bg-white rounded-lg border border-slate-200 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-amber-500 text-lg">pending</span>
+<div>
+<div class="text-xs font-bold text-slate-800">DARPA Phase 2 Deliverable</div>
+<div class="text-[11px] text-slate-500">Formal verification sign-off</div>
+</div>
+</div>
+<span class="text-[11px] font-medium text-slate-500">Due in 18d</span>
+</div>
+</div>
+</div>
+<!-- Attested Recommendations -->
+<div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Faculty Recommendations</span>
+<span class="material-symbols-outlined text-primary text-lg">verified</span>
+</div>
+<p class="text-xs text-slate-500 mb-3">
+              Official recommendation letters verified via your authenticated Stanford faculty ORCID profile.
+            </p>
+<div class="space-y-2">
+<div class="p-2.5 bg-white rounded-lg border border-slate-200 flex items-center justify-between">
+<div>
+<div class="text-xs font-bold text-slate-800">Maya Lin-Cheung</div>
+<div class="text-[11px] text-slate-500">PhD Recommendation: Stanford Q-Group</div>
+</div>
+<span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Signed</span>
+</div>
+<div class="p-2.5 bg-white rounded-lg border border-slate-200 flex items-center justify-between">
+<div>
+<div class="text-xs font-bold text-slate-800">David K. O'Reilly</div>
+<div class="text-[11px] text-slate-500">Graduate Fellowship Endorsement</div>
+</div>
+<span class="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">Drafting</span>
+</div>
+</div>
+</div>
+<div class="pt-3">
+<button class="w-full py-2 bg-primary-container hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-base">edit_square</span>
+              Draft New Recommendation
+            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Clean Professional Light Footer -->
+<footer class="mt-12 bg-white border-t border-slate-200 py-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1 font-medium text-slate-700">
+<span class="material-symbols-outlined text-primary text-base">verified</span>
+          Verified Academic Network
+        </span>
+<span>•</span>
+<span>Stanford University Lab Instance</span>
+</div>
+<div class="flex items-center gap-4">
+<a class="hover:text-primary transition" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition" href="#">Institutional Terms</a>
+<a class="hover:text-primary transition" href="#">ORCID Integration</a>
+<span>© 2025 CareerCue Education Inc.</span>
+</div>
+</div>
+</footer>
+<!-- Interactive Scripts for Wizard and Privacy Toggles -->
+<script>
+    const openBtn = document.getElementById('openWizardBtn');
+    const closeBtn = document.getElementById('closeWizardBtn');
+    const wizardModal = document.getElementById('postWizardModal');
+
+    if (openBtn && wizardModal) {
+      openBtn.addEventListener('click', () => {
+        wizardModal.classList.remove('hidden');
+        wizardModal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    if (closeBtn && wizardModal) {
+      closeBtn.addEventListener('click', () => {
+        wizardModal.classList.add('hidden');
+      });
+    }
+
+    let selectedGovernance = 'public';
+    function setGovernance(type) {
+      selectedGovernance = type;
+      const pub = document.getElementById('govPublicBtn');
+      const priv = document.getElementById('govPrivateBtn');
+      if (type === 'public') {
+        pub.className = "flex items-center justify-center gap-1.5 py-2 text-xs font-semibold rounded bg-white text-primary shadow-sm border border-slate-200 transition-all";
+        priv.className = "flex items-center justify-center gap-1.5 py-2 text-xs font-medium rounded text-slate-600 hover:text-slate-900 transition-all";
+      } else {
+        priv.className = "flex items-center justify-center gap-1.5 py-2 text-xs font-semibold rounded bg-white text-rose-700 shadow-sm border border-rose-200 transition-all";
+        pub.className = "flex items-center justify-center gap-1.5 py-2 text-xs font-medium rounded text-slate-600 hover:text-slate-900 transition-all";
+      }
+    }
+
+    // Toggle Project between Public (Visible to all) and Private (Confidential / Invite-only)
+    function toggleVisibility(projId) {
+      const badge = document.getElementById(`badge-${projId}`);
+      const btnText = document.getElementById(`btn-text-${projId}`);
+      if (!badge || !btnText) return;
+
+      const isCurrentlyPublic = badge.textContent.includes('Public');
+      if (isCurrentlyPublic) {
+        badge.className = "px-2.5 py-1 rounded text-xs font-semibold bg-rose-100 text-rose-800 flex items-center gap-1";
+        badge.innerHTML = '<span class="material-symbols-outlined text-[14px]">lock</span> Private (Invite Only)';
+        btnText.textContent = "Make Public";
+      } else {
+        badge.className = "px-2.5 py-1 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 flex items-center gap-1";
+        badge.innerHTML = '<span class="material-symbols-outlined text-[14px]">public</span> Public (Open to All)';
+        btnText.textContent = "Make Private";
+      }
+    }
+
+    function submitFellowship() {
+      const title = document.getElementById('wizTitle').value;
+      const grant = document.getElementById('wizGrant').value;
+      const stipend = document.getElementById('wizStipend').value;
+
+      const container = document.getElementById('projectListContainer');
+      const newCard = document.createElement('div');
+      newCard.className = "bg-white rounded-xl border-2 border-blue-400 p-5 shadow-sm transition-all";
+      
+      const isPriv = selectedGovernance === 'private';
+      const badgeHtml = isPriv ? 
+        `<span class="px-2.5 py-1 rounded text-xs font-semibold bg-rose-100 text-rose-800 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">lock</span> Private (Invite Only)</span>` :
+        `<span class="px-2.5 py-1 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">public</span> Public (Open to All)</span>`;
+
+      newCard.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-100">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs flex items-center justify-center shrink-0">NEW</span>
+            <div>
+              <h3 class="text-base font-bold text-slate-900 leading-snug">${title}</h3>
+              <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 mt-1">
+                <span>Grant: <strong class="text-slate-700">${grant.split('(')[0]}</strong></span>
+                <span>&bull;</span>
+                <span>Stipend: <strong class="text-slate-700">${stipend}</strong></span>
+                <span>&bull;</span>
+                <span class="text-emerald-700 font-medium">Just Published</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-auto bg-slate-50 p-1 rounded-lg border border-slate-200">
+            ${badgeHtml}
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 py-3.5 my-1 bg-slate-50/80 rounded-lg px-4 border border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-sm">0</div>
+            <div>
+              <div class="text-xs font-semibold text-slate-800">Student Applicants</div>
+              <div class="text-[11px] text-slate-500">Accepting applications</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-sm">0</div>
+            <div>
+              <div class="text-xs font-semibold text-slate-800">Fellows Appointed</div>
+              <div class="text-[11px] text-slate-500">Pipeline active</div>
+            </div>
+          </div>
+          <div class="flex items-center sm:justify-end">
+            <button class="px-3 py-1.5 rounded-lg bg-primary-container text-white text-xs font-semibold hover:bg-blue-700 transition">Manage Candidates</button>
+          </div>
+        </div>
+      `;
+
+      container.prepend(newCard);
+      document.getElementById('postWizardModal').classList.add('hidden');
+    }
+  </script>
+</body></html>

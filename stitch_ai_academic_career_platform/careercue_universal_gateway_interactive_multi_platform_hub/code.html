@@ -1,0 +1,1544 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CareerCue Verified Intelligence Platform — Portal Gateway</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .tab-active {
+      color: #004ac6;
+      border-bottom: 2px solid #004ac6;
+      font-weight: 700;
+      background-color: #f8faff;
+    }
+    .fade-in-view {
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ac6",
+            "primary-hover": "#003ea8",
+            "primary-container": "#2563eb",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#eeefff",
+            "surface": "#ffffff",
+            "surface-dim": "#f1f5f9",
+            "surface-container": "#ffffff",
+            "surface-container-low": "#f8fafc",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#e2e8f0",
+            "surface-container-highest": "#cbd5e1",
+            "on-surface": "#0f172a",
+            "on-surface-variant": "#475569",
+            "outline": "#94a3b8",
+            "outline-variant": "#e2e8f0",
+            "secondary": "#0d9488",
+            "secondary-container": "#ccfbf1",
+            "on-secondary-container": "#0f766e",
+            "background": "#f8fafc"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            "body": ["Plus Jakarta Sans", "sans-serif"],
+            "inter": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+</script>
+</head>
+<body class="bg-background font-body text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-800 min-h-screen flex flex-col relative">
+<!-- Persistent Notification Toast -->
+<div class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-700 text-xs sm:text-sm font-medium" id="toast">
+<span class="material-symbols-outlined text-emerald-400 text-lg" id="toast-icon">check_circle</span>
+<span id="toast-msg">Operation completed successfully.</span>
+</div>
+<!-- Active User Authentication Ribbon (Visible when signed in) -->
+<div class="hidden bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b border-blue-200/80 text-xs px-4 py-2 font-inter shadow-inner" id="auth-status-ribbon">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2.5">
+<span class="flex h-2.5 w-2.5 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+</span>
+<span class="text-slate-600">Authenticated via Google Workspace:</span>
+<span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200" id="user-pill-name">Elena Rostova</span>
+<span class="text-slate-500 font-mono hidden sm:inline" id="user-pill-email">(elena.rostova@stanford.edu)</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 text-blue-800 uppercase tracking-wider" id="user-pill-role">Student</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-blue-700 hover:text-blue-900 font-semibold text-xs flex items-center gap-1 hover:underline" onclick="openGoogleModal(currentActivePortal)">
+<span class="material-symbols-outlined text-sm">switch_account</span>
+<span>Switch Account</span>
+</button>
+<span class="text-slate-300">|</span>
+<button class="text-rose-600 hover:text-rose-800 font-semibold text-xs flex items-center gap-1 hover:underline" onclick="handleSignOut()">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span>Sign Out</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Corporate Light Navigation -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+<!-- Brand & Status -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3 cursor-pointer" onclick="switchView('gateway')">
+<div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/20">
+<span class="material-symbols-outlined text-xl font-bold">verified_user</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-bold text-slate-900 text-lg tracking-tight leading-none">CareerCue</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 font-semibold text-blue-700 uppercase tracking-wide border border-blue-200/60">Verified</span>
+</div>
+<span class="text-xs text-slate-500 mt-0.5">Enterprise Intelligence Platform</span>
+</div>
+</div>
+<div class="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/70 text-xs font-inter text-slate-600">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Federated OAuth 2.0 &amp; Google Workspace Connected</span>
+</div>
+</div>
+<!-- Stakeholder Interactive Navigation Links -->
+<nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-600">
+<button class="px-3 py-1.5 rounded-lg text-blue-700 bg-blue-50 font-semibold transition-colors" id="nav-btn-gateway" onclick="switchView('gateway')">Access Portals</button>
+<button class="px-3 py-1.5 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors" id="nav-btn-student" onclick="switchView('student')">Student</button>
+<button class="px-3 py-1.5 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors" id="nav-btn-university" onclick="switchView('university')">University</button>
+<button class="px-3 py-1.5 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors" id="nav-btn-enterprise" onclick="switchView('enterprise')">Enterprise</button>
+<button class="px-3 py-1.5 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors" id="nav-btn-academia" onclick="switchView('academia')">Research</button>
+<button class="px-3 py-1.5 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors" id="nav-btn-admin" onclick="switchView('admin')">Super Admin</button>
+</nav>
+<!-- Right Role & Quick Access Actions -->
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50/70 text-xs text-slate-700">
+<span class="text-slate-400">Environment:</span>
+<span class="font-semibold text-slate-900">Global Production</span>
+</div>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition-all" id="quick-action-btn" onclick="openGoogleModal('student')">
+<span class="material-symbols-outlined text-sm">login</span>
+<span id="quick-action-text">Sign In with Google</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Platform Live Switcher Tabs (For fast live previewing) -->
+<div class="bg-white border-b border-slate-200 shadow-xs sticky top-16 z-30 overflow-x-auto">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+<div class="flex space-x-1 sm:space-x-4 shrink-0 py-1 text-xs sm:text-sm font-semibold text-slate-600" id="platform-tab-bar">
+<button class="py-2.5 px-3 text-blue-700 border-b-2 border-blue-600 font-bold flex items-center gap-1.5" id="tab-gateway" onclick="switchView('gateway')">
+<span class="material-symbols-outlined text-base">hub</span>
+<span>Gateway Selector</span>
+</button>
+<button class="py-2.5 px-3 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-1.5" id="tab-student" onclick="switchView('student')">
+<span class="material-symbols-outlined text-base">school</span>
+<span>Student Workspace</span>
+</button>
+<button class="py-2.5 px-3 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-1.5" id="tab-university" onclick="switchView('university')">
+<span class="material-symbols-outlined text-base">apartment</span>
+<span>University Hub</span>
+</button>
+<button class="py-2.5 px-3 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-1.5" id="tab-enterprise" onclick="switchView('enterprise')">
+<span class="material-symbols-outlined text-base">business_center</span>
+<span>Enterprise Talent</span>
+</button>
+<button class="py-2.5 px-3 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-1.5" id="tab-academia" onclick="switchView('academia')">
+<span class="material-symbols-outlined text-base">science</span>
+<span>Research Console</span>
+</button>
+<button class="py-2.5 px-3 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-1.5" id="tab-admin" onclick="switchView('admin')">
+<span class="material-symbols-outlined text-base">admin_panel_settings</span>
+<span>Super Admin</span>
+</button>
+</div>
+<div class="hidden md:flex items-center gap-2 text-xs text-slate-500">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-mono text-[11px]">Interactive Mode: Live Preview</span>
+</div>
+</div>
+</div>
+<main class="flex-1 w-full bg-slate-50">
+<!-- ========================================================================= -->
+<!-- 1. GATEWAY HUB VIEW (Original selector + Architecture) -->
+<!-- ========================================================================= -->
+<div class="fade-in-view block" id="view-gateway">
+<!-- Hero / Clean Gateway Intro Section -->
+<section class="relative pt-12 pb-10 bg-white border-b border-slate-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-10">
+<!-- Trust Badge Header -->
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold mb-5 shadow-xs">
+<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.99 0 12s.45 3.85 1.24 5.42l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Verified Institutional Single Sign-On Active</span>
+<span class="text-blue-300">•</span>
+<span class="text-emerald-700 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> SOC2 &amp; FERPA Compliant</span>
+</div>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Universal Stakeholder Gateway
+          </h1>
+<p class="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed">
+            Select your ecosystem portal below. Authenticate seamlessly with institutional single sign-on or official <span class="font-semibold text-slate-900">Google Workspace / OAuth 2.0</span> verification.
+          </p>
+</div>
+<!-- Metric Cards Bar -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+<div class="bg-slate-50 rounded-xl p-4 border border-slate-200/80 hover:bg-blue-50/50 transition-colors cursor-pointer" onclick="showToast('42,800+ Verified Student Dossiers synchronised via ECDSA ledger.')">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Verified Students</span>
+<span class="text-2xl font-extrabold text-slate-900 mt-1 block">42,800+</span>
+<div class="flex items-center gap-1.5 text-xs text-emerald-700 font-medium mt-1">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Cryptographic Dossiers</span>
+</div>
+</div>
+<div class="bg-slate-50 rounded-xl p-4 border border-slate-200/80 hover:bg-emerald-50/50 transition-colors cursor-pointer" onclick="showToast('310+ Higher Education Registrars integrated via SAML 2.0.')">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Colleges &amp; Hubs</span>
+<span class="text-2xl font-extrabold text-slate-900 mt-1 block">310+</span>
+<div class="flex items-center gap-1.5 text-xs text-blue-700 font-medium mt-1">
+<span class="material-symbols-outlined text-sm">account_balance</span>
+<span>Accredited Registrars</span>
+</div>
+</div>
+<div class="bg-slate-50 rounded-xl p-4 border border-slate-200/80 hover:bg-indigo-50/50 transition-colors cursor-pointer" onclick="showToast('1,450+ Verified Corporate Roles live in pipeline.')">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Enterprise Roles</span>
+<span class="text-2xl font-extrabold text-slate-900 mt-1 block">1,450+</span>
+<div class="flex items-center gap-1.5 text-xs text-indigo-700 font-medium mt-1">
+<span class="material-symbols-outlined text-sm">business_center</span>
+<span>Active Verified Pipeline</span>
+</div>
+</div>
+<div class="bg-slate-50 rounded-xl p-4 border border-slate-200/80 hover:bg-emerald-50/50 transition-colors cursor-pointer" onclick="showToast('Zero-knowledge match fidelity benchmark verified at 98.4%.')">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Match Fidelity</span>
+<span class="text-2xl font-extrabold text-slate-900 mt-1 block">98.4%</span>
+<div class="flex items-center gap-1.5 text-xs text-emerald-700 font-medium mt-1">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Zero Leakage Verification</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main 4 Portals Bento Selector Section -->
+<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="portal-selector">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-blue-700">Dedicated Portal Access</span>
+<h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Choose Your Portal to Continue</h2>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-500 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-xs">
+<span class="material-symbols-outlined text-base text-blue-600">lock</span>
+<span>Isolated cryptographic enclaves for every ecosystem</span>
+</div>
+</div>
+<!-- 4 Portals Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: Student Gateway -->
+<div class="bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-200 flex flex-col justify-between overflow-hidden group">
+<div class="p-6">
+<!-- Header Tag -->
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center border border-blue-100">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+                PORTAL 01
+              </span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">
+              Student Gateway
+            </h3>
+<p class="text-xs text-slate-600 leading-relaxed mb-5">
+              Personalized skill diagnostic radar, verified portfolio issuance, AI career pathing, and real-time internship applications.
+            </p>
+<!-- Features Checklist -->
+<ul class="space-y-2.5 mb-6 text-xs text-slate-700">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>AI Skill Gap Diagnostics &amp; Radar</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Dynamic Adaptive Learning Paths</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>One-Click Verified Dossier</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Enterprise Internship Syndication</span>
+</li>
+</ul>
+<!-- Readiness Micro Metric -->
+<div class="p-3 rounded-xl bg-slate-50 border border-slate-100 mb-4">
+<div class="flex items-center justify-between text-xs mb-1.5">
+<span class="text-slate-500 font-medium">Readiness Index</span>
+<span class="font-bold text-emerald-700">94.2%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-1.5 rounded-full w-[94.2%]"></div>
+</div>
+</div>
+</div>
+<!-- Authentication Section -->
+<div class="p-6 pt-0 space-y-2.5">
+<!-- Google Login Button -->
+<button class="w-full py-2.5 px-3 rounded-xl bg-white border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-xs transition-all flex items-center justify-center gap-2.5 group/btn" onclick="openGoogleModal('student')">
+<svg class="w-4 h-4 shrink-0 transition-transform group-hover/btn:scale-110" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.99 0 12s.45 3.85 1.24 5.42l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Continue with Google</span>
+</button>
+<!-- Verified with Google Badge -->
+<div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 py-0.5">
+<span class="text-emerald-600 font-bold">✓</span>
+<span>Verified with Google Workspace / OAuth 2.0</span>
+</div>
+<!-- Alternative / Primary Action -->
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2 px-2.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-medium text-[11px] transition-colors flex items-center justify-center gap-1" onclick="simulateAuth('Elena Rostova', 'elena.rostova@stanford.edu', 'student')">
+<span class="material-symbols-outlined text-sm">account_balance</span>
+<span>Edu SSO</span>
+</button>
+<button class="py-2 px-2.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-medium text-[11px] transition-colors flex items-center justify-center gap-1" onclick="showToast('GitHub Student Developer Pack verified.')">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span>GitHub ID</span>
+</button>
+</div>
+<button class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs transition-colors flex items-center justify-center gap-1.5" onclick="switchView('student')">
+<span>Open Student Workspace</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2: University & College Hub -->
+<div class="bg-white rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all duration-200 flex flex-col justify-between overflow-hidden group">
+<div class="p-6">
+<!-- Header Tag -->
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100">
+<span class="material-symbols-outlined text-2xl">apartment</span>
+</div>
+<span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+                PORTAL 02
+              </span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">
+              University &amp; Placement Hub
+            </h3>
+<p class="text-xs text-slate-600 leading-relaxed mb-5">
+              Registrar portal for academic transcript notarization, batch cohort placement velocity tracking, and verified enterprise drives.
+            </p>
+<!-- Features Checklist -->
+<ul class="space-y-2.5 mb-6 text-xs text-slate-700">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Cohort Placement Live Tracker</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Academic Clearance Notarization</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Enterprise Drive Syndication</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Institutional Ledger Compliance</span>
+</li>
+</ul>
+<!-- Micro Velocity Indicator -->
+<div class="p-3 rounded-xl bg-slate-50 border border-slate-100 mb-4">
+<div class="flex items-center justify-between text-xs mb-1.5">
+<span class="text-slate-500 font-medium">Class of 2025 Attested</span>
+<span class="font-bold text-emerald-700">87.6%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-1.5 rounded-full w-[87.6%]"></div>
+</div>
+</div>
+</div>
+<!-- Authentication Section -->
+<div class="p-6 pt-0 space-y-2.5">
+<!-- Google Login Button -->
+<button class="w-full py-2.5 px-3 rounded-xl bg-white border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-xs transition-all flex items-center justify-center gap-2.5 group/btn" onclick="openGoogleModal('university')">
+<svg class="w-4 h-4 shrink-0 transition-transform group-hover/btn:scale-110" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.99 0 12s.45 3.85 1.24 5.42l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Continue with Google Workspace</span>
+</button>
+<!-- Verified with Google Badge -->
+<div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 py-0.5">
+<span class="text-emerald-600 font-bold">✓</span>
+<span>Verified with Google Workspace / OAuth 2.0</span>
+</div>
+<!-- Alternative / Primary Action -->
+<button class="w-full py-2 px-3 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-medium text-xs transition-colors flex items-center justify-center gap-1.5" onclick="simulateAuth('Dr. Aris Thorne', 'thorne@cs.cmu.edu', 'university')">
+<span class="material-symbols-outlined text-sm">domain_verification</span>
+<span>.edu SAML / InCommon SSO</span>
+</button>
+<button class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-xs transition-colors flex items-center justify-center gap-1.5" onclick="switchView('university')">
+<span>Access University Hub</span>
+<span class="material-symbols-outlined text-sm">verified</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Enterprise Hiring Portal -->
+<div class="bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-200 flex flex-col justify-between overflow-hidden group">
+<div class="p-6">
+<!-- Header Tag -->
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center border border-indigo-100">
+<span class="material-symbols-outlined text-2xl">business_center</span>
+</div>
+<span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                PORTAL 03
+              </span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-indigo-700 transition-colors">
+              Enterprise &amp; Hiring Portal
+            </h3>
+<p class="text-xs text-slate-600 leading-relaxed mb-5">
+              Verified corporate hiring suite with algorithmic candidate matching, credential attestation, and zero-knowledge diversity pipelines.
+            </p>
+<!-- Features Checklist -->
+<ul class="space-y-2.5 mb-6 text-xs text-slate-700">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>AI Candidate Match Fidelity Scores</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Direct Internship Role Publishing</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Cryptographic Credential Endorsement</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>D-U-N-S Verified Org Gateway</span>
+</li>
+</ul>
+<!-- Talent Pool Micro Metric -->
+<div class="p-3 rounded-xl bg-slate-50 border border-slate-100 mb-4">
+<div class="flex items-center justify-between text-xs mb-1.5">
+<span class="text-slate-500 font-medium">Active Screened Cohort</span>
+<span class="font-bold text-indigo-700">384 Candidates</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-indigo-600 h-1.5 rounded-full w-[82%]"></div>
+</div>
+</div>
+</div>
+<!-- Authentication Section -->
+<div class="p-6 pt-0 space-y-2.5">
+<!-- Google Login Button -->
+<button class="w-full py-2.5 px-3 rounded-xl bg-white border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-xs transition-all flex items-center justify-center gap-2.5 group/btn" onclick="openGoogleModal('enterprise')">
+<svg class="w-4 h-4 shrink-0 transition-transform group-hover/btn:scale-110" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.99 0 12s.45 3.85 1.24 5.42l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Continue with Google Workspace</span>
+</button>
+<!-- Verified with Google Badge -->
+<div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 py-0.5">
+<span class="text-emerald-600 font-bold">✓</span>
+<span>Verified with Google Workspace / OAuth 2.0</span>
+</div>
+<!-- Alternative / Primary Action -->
+<button class="w-full py-2 px-3 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-medium text-xs transition-colors flex items-center justify-center gap-1.5" onclick="simulateAuth('Marcus Vance', 'marcus.vance@anthropic.com', 'enterprise')">
+<span class="material-symbols-outlined text-sm">lock_person</span>
+<span>Enterprise SSO (Okta / Azure AD)</span>
+</button>
+<button class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs transition-colors flex items-center justify-center gap-1.5" onclick="switchView('enterprise')">
+<span>Sign In to Talent Pipeline</span>
+<span class="material-symbols-outlined text-sm">business</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Academia & Research Hub -->
+<div class="bg-white rounded-2xl border border-slate-200 hover:border-cyan-300 hover:shadow-lg transition-all duration-200 flex flex-col justify-between overflow-hidden group">
+<div class="p-6">
+<!-- Header Tag -->
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-800 flex items-center justify-center border border-cyan-100">
+<span class="material-symbols-outlined text-2xl">science</span>
+</div>
+<span class="text-xs font-bold text-cyan-800 bg-cyan-50 px-2.5 py-1 rounded-full border border-cyan-100">
+                PORTAL 04
+              </span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-cyan-800 transition-colors">
+              Academia &amp; Research Hub
+            </h3>
+<p class="text-xs text-slate-600 leading-relaxed mb-5">
+              Collaborative research space for grant team funding, peer-reviewed attribution ledgers, and academic research assistant allocation.
+            </p>
+<!-- Features Checklist -->
+<ul class="space-y-2.5 mb-6 text-xs text-slate-700">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Open &amp; NDA Paper Repositories</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Grant Allocation &amp; PI Console</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>AI Skill Match RA Benchmarking</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0 mt-0.5">check_circle</span>
+<span>Cross-Lab Attribution Proofs</span>
+</li>
+</ul>
+<!-- Grant Micro Metric -->
+<div class="p-3 rounded-xl bg-slate-50 border border-slate-100 mb-4">
+<div class="flex items-center justify-between text-xs mb-1.5">
+<span class="text-slate-500 font-medium">Grants Active</span>
+<span class="font-bold text-cyan-800">$3.4M Deployed</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-cyan-600 h-1.5 rounded-full w-[78%]"></div>
+</div>
+</div>
+</div>
+<!-- Authentication Section -->
+<div class="p-6 pt-0 space-y-2.5">
+<!-- Google Login Button -->
+<button class="w-full py-2.5 px-3 rounded-xl bg-white border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-xs transition-all flex items-center justify-center gap-2.5 group/btn" onclick="openGoogleModal('academia')">
+<svg class="w-4 h-4 shrink-0 transition-transform group-hover/btn:scale-110" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.99 0 12s.45 3.85 1.24 5.42l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Continue with Google / Edu</span>
+</button>
+<!-- Verified with Google Badge -->
+<div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 py-0.5">
+<span class="text-emerald-600 font-bold">✓</span>
+<span>Verified with Google Workspace / OAuth 2.0</span>
+</div>
+<!-- Alternative / Primary Action -->
+<button class="w-full py-2 px-3 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-medium text-xs transition-colors flex items-center justify-center gap-1.5" onclick="simulateAuth('Prof. Elena Rostova', 'elena.rostova@stanford.edu', 'academia')">
+<span class="material-symbols-outlined text-sm">biotech</span>
+<span>ORCID iD Authentication</span>
+</button>
+<button class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-xs transition-colors flex items-center justify-center gap-1.5" onclick="switchView('academia')">
+<span>Enter Research Hub</span>
+<span class="material-symbols-outlined text-sm">menu_book</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Super Admin Control Center Access Card -->
+<section class="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-10" id="admin-section">
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+<div class="flex items-start gap-4 max-w-3xl">
+<div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center shrink-0 border border-slate-200">
+<span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-lg font-bold text-slate-900">Super Admin Control Center</h3>
+<span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 font-semibold text-slate-700 border border-slate-200">Tier 0 Sovereign Scope</span>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Restricted infrastructure console for multi-tenant auditing, global permission matrices, SOC2 telemetry, smart contract triggers, and cross-portal diagnostics.
+              </p>
+<div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 font-inter">
+<span class="flex items-center gap-1.5 text-emerald-700 font-medium">
+<span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span>
+                  Hardware Token (FIDO2 / YubiKey) Supported
+                </span>
+<span class="flex items-center gap-1.5 text-slate-600">
+<span class="material-symbols-outlined text-sm text-slate-400">shield</span>
+                  Zero-Knowledge Isolation Enforced
+                </span>
+</div>
+</div>
+</div>
+<!-- Admin Login Actions with Google & FIDO2 -->
+<div class="w-full lg:w-80 flex flex-col gap-2 shrink-0">
+<!-- Google Workspace Admin Button -->
+<button class="w-full py-2.5 px-3 rounded-xl bg-white border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-xs transition-all flex items-center justify-center gap-2.5 group/btn" onclick="openGoogleModal('admin')">
+<svg class="w-4 h-4 shrink-0 transition-transform group-hover/btn:scale-110" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.99 0 12s.45 3.85 1.24 5.42l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Admin Login with Google</span>
+</button>
+<!-- Verified with Google Badge -->
+<div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 py-0.5">
+<span class="text-emerald-600 font-bold">✓</span>
+<span>Verified with Google Workspace / OAuth 2.0</span>
+</div>
+<button class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-xs transition-colors flex items-center justify-center gap-2" onclick="switchView('admin')">
+<span class="material-symbols-outlined text-sm">vpn_key</span>
+<span>Open Super Admin Console</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Architecture & Cryptographic Verification Details -->
+<section class="py-12 bg-white border-t border-slate-200" id="how-it-works">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<div class="lg:col-span-6 space-y-4">
+<span class="text-xs font-bold uppercase tracking-wider text-blue-700">Security Architecture</span>
+<h3 class="text-2xl sm:text-3xl font-bold text-slate-900 leading-snug">
+              Zero Information Leakage. Absolute Verifiability.
+            </h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+              Each portal operates as a logically partitioned environment. Assessments and qualifications are notarized via cryptographic proofs — allowing employers and researchers to verify candidate proficiencies without compromising student privacy or university records.
+            </p>
+<div class="space-y-3 pt-2">
+<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-base">verified</span>
+</div>
+<div>
+<h4 class="text-xs font-bold text-slate-900">Google Workspace &amp; Institutional Federation</h4>
+<p class="text-xs text-slate-600 mt-0.5">Every user identity is tethered to authorized institutional domains (.edu, verified corporate domains, or ORCID registries).</p>
+</div>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-base">lock</span>
+</div>
+<div>
+<h4 class="text-xs font-bold text-slate-900">Zero-Knowledge Qualification Proofs</h4>
+<p class="text-xs text-slate-600 mt-0.5">Enterprises confirm candidates meet specific performance thresholds without exposing private demographic data.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Protocol Flow Demonstration Box -->
+<div class="lg:col-span-6 bg-slate-50 rounded-2xl border border-slate-200 p-6">
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 text-xs text-slate-500">
+<div class="flex items-center gap-1.5 font-mono text-slate-700 font-semibold">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+<span>telemetry-verification-flow</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-medium text-[11px] border border-emerald-200">STATE: VERIFIED ACTIVE</span>
+</div>
+<div class="space-y-3 text-xs">
+<div class="p-3 rounded-lg bg-white border border-slate-200 flex items-center justify-between shadow-xs hover:border-blue-300 transition-colors cursor-pointer" onclick="showToast('Cryptographic Skill Proof SHA-256 #8b40... Notarized')">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-blue-600 text-base">school</span>
+<span class="font-medium text-slate-800">Student AI Skill Diagnostic</span>
+</div>
+<span class="font-mono text-slate-500 text-[11px]">SHA-256 #8b40...</span>
+</div>
+<div class="flex justify-center text-slate-400">
+<span class="material-symbols-outlined text-base">arrow_downward</span>
+</div>
+<div class="p-3 rounded-lg bg-white border border-slate-200 flex items-center justify-between shadow-xs hover:border-emerald-300 transition-colors cursor-pointer" onclick="showToast('Registrar Attestation Validated: ECDSA P-256 keypair signed')">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-emerald-600 text-base">account_balance</span>
+<span class="font-medium text-slate-800">University Registrar Attestation</span>
+</div>
+<span class="font-mono text-emerald-700 text-[11px] font-semibold">ECDSA VALID</span>
+</div>
+<div class="flex justify-center text-slate-400">
+<span class="material-symbols-outlined text-base">arrow_downward</span>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<div class="p-3 rounded-lg bg-white border border-slate-200 shadow-xs cursor-pointer hover:border-indigo-300" onclick="showToast('Enterprise Channel: Pipeline fidelity verified')">
+<span class="text-[10px] uppercase text-slate-500 font-bold block mb-1">Enterprise Channel</span>
+<span class="font-semibold text-slate-800 block text-xs">Direct Candidate Pipeline</span>
+<span class="text-emerald-700 font-medium text-[11px]">98.4% Match Fidelity</span>
+</div>
+<div class="p-3 rounded-lg bg-white border border-slate-200 shadow-xs cursor-pointer hover:border-cyan-300" onclick="showToast('Research Hub: RA Allocation channel open')">
+<span class="text-[10px] uppercase text-slate-500 font-bold block mb-1">Research Hub Channel</span>
+<span class="font-semibold text-slate-800 block text-xs">Grant RA Allocation</span>
+<span class="text-blue-700 font-medium text-[11px]">Fellowship Match: 99th%</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
+<span>Ledger Consensus Latency: 12ms</span>
+<span class="text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 100% Zero Dropped Records
+              </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- ========================================================================= -->
+<!-- 2. STUDENT PORTAL INTERACTIVE VIEW (Elena Rostova) -->
+<!-- ========================================================================= -->
+<div class="fade-in-view hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="view-student">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-blue-600 text-white font-bold text-xl flex items-center justify-center shadow-md">
+        ER
+      </div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-2xl font-bold text-slate-900">Elena Rostova</h1>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Verified Student
+          </span>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">B.S. Computer Science &amp; AI • Stanford University • Class of 2025 • GPA: 3.94</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3.5 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('Verified Dossier PDF exported to device.')">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Export Cryptographic Dossier</span>
+</button>
+<button class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('AI diagnostic radar refresh triggered.')">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span>Run AI Benchmark</span>
+</button>
+</div>
+</div>
+<!-- Student Grid: Skill Radar + Roadmap + Target Opportunities -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left 2 Cols: AI Skill Diagnostics & Roadmaps -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Diagnostic Radar Summary Card -->
+<div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-bold text-slate-900 text-base">Adaptive AI Skill Gap Radar</h3>
+<p class="text-xs text-slate-500 mt-0.5">Benchmarked against 1,200+ Tier-1 Machine Learning Engineer job postings</p>
+</div>
+<span class="px-2.5 py-1 rounded bg-blue-50 text-blue-700 text-xs font-bold font-mono">94.2% READINESS</span>
+</div>
+<!-- Radar / Skill bars -->
+<div class="space-y-3.5 pt-2">
+<div>
+<div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+<span>Distributed LLM Training &amp; PyTorch FSDP</span>
+<span class="text-blue-600">96% • Top 2% Percentile</span>
+</div>
+<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+<div class="bg-blue-600 h-2 rounded-full w-[96%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+<span>CUDA Kernel Optimization &amp; Triton</span>
+<span class="text-blue-600">88% • Target: 92%</span>
+</div>
+<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+<div class="bg-blue-600 h-2 rounded-full w-[88%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+<span>RLHF &amp; Direct Preference Optimization (DPO)</span>
+<span class="text-emerald-600">98% • Mastered</span>
+</div>
+<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-2 rounded-full w-[98%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+<span>Zero-Knowledge Proofs &amp; Cryptographic Ledgers</span>
+<span class="text-amber-600">76% • Recommended Module: zk-SNARKs Lab</span>
+</div>
+<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-2 rounded-full w-[76%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-5 p-3 rounded-xl bg-blue-50/70 border border-blue-100 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-600 text-base">auto_awesome</span>
+<span class="text-blue-900 font-medium">Recommended: Complete "Advanced Triton Memory Tile" to reach 99th percentile.</span>
+</div>
+<button class="text-blue-700 font-bold hover:underline shrink-0" onclick="showToast('Module enrolled! Added to learning workspace.')">Enroll (12 min)</button>
+</div>
+</div>
+<!-- Verified Projects & Repositories -->
+<div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-slate-900 text-base">Attested Dossier Artifacts</h3>
+<span class="text-xs text-slate-500">4 Verified by Stanford Registrar</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:shadow-xs transition-all">
+<div class="flex items-center justify-between text-xs mb-2">
+<span class="font-mono text-blue-700 font-semibold">GitHub Attestation</span>
+<span class="text-emerald-700 font-medium flex items-center gap-0.5"><span class="material-symbols-outlined text-xs">check_circle</span> Attested</span>
+</div>
+<h4 class="font-bold text-slate-900 text-sm">flash-attention-sparse-v3</h4>
+<p class="text-xs text-slate-600 mt-1">High-throughput causal mask attention with 2.8x speedup on NVIDIA H100.</p>
+<div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-200/60 text-[11px] text-slate-500">
+<span>Stars: 412 • Forks: 48</span>
+<button class="text-blue-600 font-semibold hover:underline" onclick="showToast('Commit history cryptographic proof opened')">Verify Hash</button>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:shadow-xs transition-all">
+<div class="flex items-center justify-between text-xs mb-2">
+<span class="font-mono text-purple-700 font-semibold">NeurIPS 2024 Co-author</span>
+<span class="text-emerald-700 font-medium flex items-center gap-0.5"><span class="material-symbols-outlined text-xs">check_circle</span> Attested</span>
+</div>
+<h4 class="font-bold text-slate-900 text-sm">Self-Supervised Multimodal Encoders</h4>
+<p class="text-xs text-slate-600 mt-1">Under Stanford AI Lab (SAIL). Attribution indexed via ORCID #0009-021.</p>
+<div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-200/60 text-[11px] text-slate-500">
+<span>DOI: 10.1145/33423</span>
+<button class="text-blue-600 font-semibold hover:underline" onclick="showToast('Institutional notarization signature confirmed')">View Proof</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Col: Top Direct Internship Applications -->
+<div class="space-y-6">
+<div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-slate-900 text-base">Priority Direct Matches</h3>
+<span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">High Fidelity</span>
+</div>
+<div class="space-y-4">
+<!-- Role 1 -->
+<div class="p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-300 transition-all">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-900">Google DeepMind</span>
+<span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">98.2% Match</span>
+</div>
+<p class="font-semibold text-sm text-slate-800">Research Scientist Intern — Frontier Models</p>
+<p class="text-xs text-slate-500 mt-1">Mountain View, CA • Hybrid • $11,500 / mo</p>
+<div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+<span class="text-[11px] text-slate-400">Deadline: March 28</span>
+<button class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold" onclick="showToast('Application Submitted with Verified Skill Passport!')">
+                Instant Apply
+              </button>
+</div>
+</div>
+<!-- Role 2 -->
+<div class="p-4 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 transition-all">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-900">Anthropic</span>
+<span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">97.8% Match</span>
+</div>
+<p class="font-semibold text-sm text-slate-800">Systems &amp; Alignment Engineer Intern</p>
+<p class="text-xs text-slate-500 mt-1">San Francisco, CA • On-site • $12,000 / mo</p>
+<div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+<span class="text-[11px] text-slate-400">Fast-track Verified</span>
+<button class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold" onclick="showToast('Application Submitted with Verified Skill Passport!')">
+                Instant Apply
+              </button>
+</div>
+</div>
+<!-- Role 3 -->
+<div class="p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition-all">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-900">Stripe Radar AI</span>
+<span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">95.4% Match</span>
+</div>
+<p class="font-semibold text-sm text-slate-800">Fraud ML Infrastructure Intern</p>
+<p class="text-xs text-slate-500 mt-1">Seattle, WA • Remote • $10,500 / mo</p>
+<div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+<span class="text-[11px] text-slate-400">Dossier Required</span>
+<button class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold" onclick="showToast('Application Submitted with Verified Skill Passport!')">
+                Instant Apply
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- 3. UNIVERSITY & PLACEMENT HUB VIEW (Dr. Aris Thorne) -->
+<!-- ========================================================================= -->
+<div class="fade-in-view hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="view-university">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white font-bold text-xl flex items-center justify-center shadow-md">
+        CMU
+      </div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-2xl font-bold text-slate-900">Carnegie Mellon University — School of Computer Science</h1>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">Registrar Portal</span>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Dean &amp; Placement Director: Dr. Aris Thorne • thorne@cs.cmu.edu • 1,420 Active Seniors</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('Batch notarization completed for 48 candidates.')">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Batch Notarize Clearance (48)</span>
+</button>
+<button class="px-3.5 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('Curriculum Deficit Analytics exported to PDF.')">
+<span class="material-symbols-outlined text-sm">analytics</span>
+<span>Curriculum Audit</span>
+</button>
+</div>
+</div>
+<!-- University Metrics & Clearance Table -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+<div class="bg-white rounded-xl p-4 border border-slate-200">
+<span class="text-xs text-slate-500 uppercase font-semibold">Cohort Placement Rate</span>
+<div class="text-2xl font-bold text-slate-900 mt-1">87.6%</div>
+<span class="text-xs text-emerald-700 font-medium">↑ +4.2% YoY vs 2024</span>
+</div>
+<div class="bg-white rounded-xl p-4 border border-slate-200">
+<span class="text-xs text-slate-500 uppercase font-semibold">Pending Clearances</span>
+<div class="text-2xl font-bold text-amber-600 mt-1">18 Requests</div>
+<span class="text-xs text-slate-500">Graduation Audit Check</span>
+</div>
+<div class="bg-white rounded-xl p-4 border border-slate-200">
+<span class="text-xs text-slate-500 uppercase font-semibold">Partner Companies</span>
+<div class="text-2xl font-bold text-slate-900 mt-1">94 Employers</div>
+<span class="text-xs text-blue-700 font-medium">32 Direct Campus Drives</span>
+</div>
+<div class="bg-white rounded-xl p-4 border border-slate-200">
+<span class="text-xs text-slate-500 uppercase font-semibold">Curriculum Gap Index</span>
+<div class="text-2xl font-bold text-emerald-700 mt-1">Low (3.1%)</div>
+<span class="text-xs text-emerald-700">Aligned with Industry Demand</span>
+</div>
+</div>
+<!-- Clearance Workflow Table -->
+<div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+<div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+<div>
+<h3 class="font-bold text-slate-900 text-base">Academic Clearance &amp; Transcript Notarization Ledger</h3>
+<p class="text-xs text-slate-500">Authorized cryptographically with Carnegie Mellon Institutional Private Key</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-slate-500">Filter:</span>
+<select class="text-xs rounded-lg border-slate-300 py-1.5 px-2.5 bg-white" onchange="showToast('Filter updated for cohort view')">
+<option>All Senior Cohorts (2025)</option>
+<option>Machine Learning Dept</option>
+<option>Robotics Institute</option>
+<option>Language Technologies (LTI)</option>
+</select>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="border-b border-slate-200 bg-slate-50 text-slate-600 font-semibold uppercase text-[11px] tracking-wider">
+<th class="p-3.5 pl-6">Student</th>
+<th class="p-3.5">Department</th>
+<th class="p-3.5">Credits Completed</th>
+<th class="p-3.5">Target Offer</th>
+<th class="p-3.5">Attestation Status</th>
+<th class="p-3.5 pr-6 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-slate-700">
+<tr class="hover:bg-slate-50">
+<td class="p-3.5 pl-6 font-bold text-slate-900">David K. Miller</td>
+<td class="p-3.5">M.S. Machine Learning</td>
+<td class="p-3.5">36 / 36 (Complete)</td>
+<td class="p-3.5"><span class="font-semibold text-slate-900">OpenAI</span> (Research Eng)</td>
+<td class="p-3.5"><span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">Attested on Ledger</span></td>
+<td class="p-3.5 pr-6 text-right">
+<button class="text-blue-600 font-semibold hover:underline" onclick="showToast('Credential hash verified: #0x92f8c...')">View Hash</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50">
+<td class="p-3.5 pl-6 font-bold text-slate-900">Priya Sharma</td>
+<td class="p-3.5">B.S. Computer Science</td>
+<td class="p-3.5">120 / 120 (Complete)</td>
+<td class="p-3.5"><span class="font-semibold text-slate-900">Apple</span> (Core ML)</td>
+<td class="p-3.5"><span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">Attested on Ledger</span></td>
+<td class="p-3.5 pr-6 text-right">
+<button class="text-blue-600 font-semibold hover:underline" onclick="showToast('Credential hash verified: #0x44ab7...')">View Hash</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50">
+<td class="p-3.5 pl-6 font-bold text-slate-900">Marcus Chen</td>
+<td class="p-3.5">Robotics Institute</td>
+<td class="p-3.5">32 / 36 (Pending Lab)</td>
+<td class="p-3.5"><span class="font-semibold text-slate-900">Tesla Optimus</span></td>
+<td class="p-3.5"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 font-semibold border border-amber-200">Pending Review</span></td>
+<td class="p-3.5 pr-6 text-right">
+<button class="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold" onclick="showToast('Transcript approved &amp; notary seal attached!')">Sign &amp; Attest</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- 4. ENTERPRISE & HIRING PORTAL VIEW (Marcus Vance) -->
+<!-- ========================================================================= -->
+<div class="fade-in-view hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="view-enterprise">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white font-bold text-xl flex items-center justify-center shadow-md">
+        AN
+      </div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-2xl font-bold text-slate-900">Anthropic Talent Command</h1>
+<span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-semibold">Verified Corporate Pipeline</span>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Talent Lead: Marcus Vance • marcus.vance@anthropic.com • D-U-N-S #11-893-4210</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('Internship Role Published &amp; Broadcasted to 310+ Colleges!')">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+<span>Broadcast New Role</span>
+</button>
+<button class="px-3.5 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('Candidate shortlist exported to Greenhouse ATS.')">
+<span class="material-symbols-outlined text-sm">sync</span>
+<span>Sync with ATS</span>
+</button>
+</div>
+</div>
+<!-- Enterprise Screened Candidate Pipeline Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Candidate 1 -->
+<div class="bg-white rounded-2xl border border-slate-200 p-5 hover:border-indigo-400 hover:shadow-md transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-xs border border-emerald-200">
+            98.8% Match Score
+          </span>
+<span class="text-xs font-mono text-slate-400">ID: #SAIL-092</span>
+</div>
+<h4 class="text-base font-bold text-slate-900">Elena Rostova</h4>
+<p class="text-xs text-slate-500">Stanford University • AI &amp; Comp Sci</p>
+<div class="mt-4 space-y-2">
+<div class="text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+<span class="font-semibold text-slate-700 block">Verified Top Competency:</span>
+<span class="text-slate-600">PyTorch FSDP, Distributed Kernels, RLHF Alignment</span>
+</div>
+<div class="text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+<span class="font-semibold text-slate-700 block">Registrar Status:</span>
+<span class="text-emerald-700 font-medium">Clearance Verified (GPA 3.94)</span>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+<button class="text-indigo-600 font-semibold text-xs hover:underline" onclick="showToast('Private cryptographic candidate dossier opened')">Audit Dossier</button>
+<button class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold" onclick="showToast('Interview offer sent via institutional escrow!')">Fast-Track Offer</button>
+</div>
+</div>
+<!-- Candidate 2 -->
+<div class="bg-white rounded-2xl border border-slate-200 p-5 hover:border-indigo-400 hover:shadow-md transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-xs border border-emerald-200">
+            96.4% Match Score
+          </span>
+<span class="text-xs font-mono text-slate-400">ID: #CMU-412</span>
+</div>
+<h4 class="text-base font-bold text-slate-900">Liam O'Connor</h4>
+<p class="text-xs text-slate-500">Carnegie Mellon University • LTI NLP</p>
+<div class="mt-4 space-y-2">
+<div class="text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+<span class="font-semibold text-slate-700 block">Verified Top Competency:</span>
+<span class="text-slate-600">Token Routing, Sparse Mixture of Experts, Triton</span>
+</div>
+<div class="text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+<span class="font-semibold text-slate-700 block">Registrar Status:</span>
+<span class="text-emerald-700 font-medium">Clearance Verified (GPA 3.91)</span>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+<button class="text-indigo-600 font-semibold text-xs hover:underline" onclick="showToast('Private cryptographic candidate dossier opened')">Audit Dossier</button>
+<button class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold" onclick="showToast('Interview offer sent via institutional escrow!')">Fast-Track Offer</button>
+</div>
+</div>
+<!-- Candidate 3 -->
+<div class="bg-white rounded-2xl border border-slate-200 p-5 hover:border-indigo-400 hover:shadow-md transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold text-xs border border-blue-200">
+            94.1% Match Score
+          </span>
+<span class="text-xs font-mono text-slate-400">ID: #MIT-781</span>
+</div>
+<h4 class="text-base font-bold text-slate-900">Zhen Wang</h4>
+<p class="text-xs text-slate-500">MIT • CSAIL Systems Group</p>
+<div class="mt-4 space-y-2">
+<div class="text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+<span class="font-semibold text-slate-700 block">Verified Top Competency:</span>
+<span class="text-slate-600">InfiniBand RDMA, High-Performance Compute</span>
+</div>
+<div class="text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+<span class="font-semibold text-slate-700 block">Registrar Status:</span>
+<span class="text-emerald-700 font-medium">Clearance Verified (GPA 3.88)</span>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+<button class="text-indigo-600 font-semibold text-xs hover:underline" onclick="showToast('Private cryptographic candidate dossier opened')">Audit Dossier</button>
+<button class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold" onclick="showToast('Interview offer sent via institutional escrow!')">Fast-Track Offer</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- 5. ACADEMIA & RESEARCH HUB VIEW -->
+<!-- ========================================================================= -->
+<div class="fade-in-view hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="view-academia">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-cyan-700 text-white font-bold text-xl flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-3xl">science</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-2xl font-bold text-slate-900">National AI Research Cloud &amp; Lab Consortium</h1>
+<span class="px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200 text-xs font-semibold">NSF / DARPA Grant Console</span>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Principal Investigator: Prof. Elena Rostova • ORCID: 0009-0002-1849 • $3.4M Active Funding</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3.5 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-2 shadow-xs" id="privacy-toggle-btn" onclick="togglePrivacy()">
+<span class="material-symbols-outlined text-sm text-emerald-600">lock_open</span>
+<span id="privacy-status-text">Repository: Public Grants Mode</span>
+</button>
+<button class="px-3.5 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('New NSF RA fellowship requisition posted!')">
+<span class="material-symbols-outlined text-sm">person_add</span>
+<span>Requisition RA</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+<h3 class="font-bold text-slate-900 text-base mb-3">Attributed Research Ledgers &amp; Fellowships</h3>
+<div class="space-y-3">
+<div class="p-4 rounded-xl border border-slate-200 bg-slate-50/60 flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[10px] font-bold">GRANT #NSF-24-912</span>
+<span class="text-xs text-slate-500">Funded: $1,200,000</span>
+</div>
+<h4 class="font-bold text-slate-900 text-sm mt-1.5">Formal Verification of Neural Network Safety Bounds</h4>
+<p class="text-xs text-slate-600 mt-0.5">3 Postdoc fellows, 4 Graduate Research Assistants assigned.</p>
+</div>
+<button class="text-xs font-semibold text-cyan-700 hover:underline shrink-0" onclick="showToast('Attribution ledger proof exported with DOI link')">Ledger Proof</button>
+</div>
+<div class="p-4 rounded-xl border border-slate-200 bg-slate-50/60 flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-[10px] font-bold">GRANT #DARPA-AI-01</span>
+<span class="text-xs text-slate-500">Funded: $2,200,000</span>
+</div>
+<h4 class="font-bold text-slate-900 text-sm mt-1.5">Zero-Knowledge Attestation for Cross-Institutional Compute</h4>
+<p class="text-xs text-slate-600 mt-0.5">Collaboration with Stanford, CMU, and Berkeley RISELab.</p>
+</div>
+<button class="text-xs font-semibold text-cyan-700 hover:underline shrink-0" onclick="showToast('Attribution ledger proof exported with DOI link')">Ledger Proof</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+<h3 class="font-bold text-slate-900 text-base mb-3">Candidate RA Benchmarks</h3>
+<div class="space-y-3">
+<div class="p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+<div>
+<span class="font-bold text-xs text-slate-900 block">Sarah Lin (MIT)</span>
+<span class="text-[11px] text-slate-500">Coq / Lean 4 Formal Verification</span>
+</div>
+<span class="text-xs font-bold text-cyan-800">99th %</span>
+</div>
+<div class="p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+<div>
+<span class="font-bold text-xs text-slate-900 block">Alex Kovacs (Stanford)</span>
+<span class="text-[11px] text-slate-500">Differential Privacy &amp; MPC</span>
+</div>
+<span class="text-xs font-bold text-cyan-800">96th %</span>
+</div>
+</div>
+<button class="w-full mt-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs" onclick="showToast('Cross-lab attribution proof verified with ORCID records!')">
+        Verify Attribution Ledgers
+      </button>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- 6. SUPER ADMIN CONTROL CENTER INTERACTIVE VIEW -->
+<!-- ========================================================================= -->
+<div class="fade-in-view hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="view-admin">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-slate-900 text-white font-bold text-xl flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-3xl">admin_panel_settings</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-2xl font-bold text-slate-900">Tier 0 Super Admin Console</h1>
+<span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold">SOVEREIGN ROOT</span>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Admin: sec-ops@careercue.internal • Hardware Token FIDO2 Active • Multi-Tenant Isolation: Enforced</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3.5 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('Cryptographic Security Audit Log Exported (SOC2 Type II format).')">
+<span class="material-symbols-outlined text-sm">security_update_good</span>
+<span>Export Security Audit</span>
+</button>
+<button class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-2 shadow-xs" onclick="showToast('Zero-Knowledge Isolation verified on all 5 clusters.')">
+<span class="material-symbols-outlined text-sm">health_and_safety</span>
+<span>Run Enclave Diagnostics</span>
+</button>
+</div>
+</div>
+<!-- Admin Controls & Live Audit Stream -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+<h3 class="font-bold text-slate-900 text-base">Cluster Policies &amp; Sensitivity</h3>
+<div>
+<label class="text-xs font-semibold text-slate-700 flex justify-between mb-1">
+<span>ZK-Proof Verification Threshold</span>
+<span class="font-mono text-blue-600">99.98% Strict</span>
+</label>
+<input class="w-full accent-blue-600 cursor-pointer" onchange="showToast('Zero-knowledge proof verification threshold updated to ' + this.value + '%')" type="range" value="98">
+</div>
+<div>
+<label class="text-xs font-semibold text-slate-700 flex justify-between mb-1">
+<span>Enterprise Rate Limiting</span>
+<span class="font-mono text-slate-700">10,000 req/sec</span>
+</label>
+<input class="w-full accent-slate-800 cursor-pointer" onchange="showToast('API throttling and rate limits recalibrated')" type="range" value="75">
+</div>
+<div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+<div>
+<span class="font-bold text-slate-900 block">Emergency Enclave Lockdown</span>
+<span class="text-slate-500">Restricts all API egress across partitions</span>
+</div>
+<button class="px-2.5 py-1 rounded bg-rose-50 text-rose-700 font-bold border border-rose-200 hover:bg-rose-100" onclick="showToast('Enclave Lockdown drill simulated without downtime.')">
+          Simulate Drill
+        </button>
+</div>
+</div>
+<!-- Admin Audit Feed -->
+<div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-slate-900 text-base">Real-Time Security &amp; OAuth Telemetry</h3>
+<span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px] font-bold">ALL SERVICES GREEN</span>
+</div>
+<div class="space-y-2.5 font-mono text-xs text-slate-600">
+<div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-slate-900">OAuth2.0 Token Issued:</span>
+<span>elena.rostova@stanford.edu (Google Workspace SSO)</span>
+</div>
+<span class="text-slate-400 text-[11px]">Just now</span>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-slate-900">Registrar Attestation:</span>
+<span>CMU Registrar notarized Batch #4982 (48 records)</span>
+</div>
+<span class="text-slate-400 text-[11px]">1 min ago</span>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+<span class="text-slate-900">Enterprise Match Query:</span>
+<span>Anthropic Enclave #802 (Zero-Knowledge Filter)</span>
+</div>
+<span class="text-slate-400 text-[11px]">3 mins ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- ========================================================================= -->
+<!-- INTERACTIVE GOOGLE ACCOUNT SIGN-IN / SSO MODAL -->
+<!-- ========================================================================= -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs hidden p-4" id="google-modal">
+<div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden transform transition-all">
+<!-- Modal Header with Official Google Header Styling -->
+<div class="p-6 border-b border-slate-100 flex items-center justify-between bg-white">
+<div class="flex items-center gap-3">
+<svg class="w-6 h-6" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.99 0 12s.45 3.85 1.24 5.42l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<div>
+<h3 class="font-bold text-slate-900 text-sm">Sign in with Google</h3>
+<p class="text-[11px] text-slate-500">Choose an account to continue to CareerCue Platform</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-slate-600 p-1 rounded-lg" onclick="closeGoogleModal()">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<!-- Authentication Progress / Loader State (Initially hidden) -->
+<div class="hidden p-8 text-center space-y-4" id="auth-loader-state">
+<div class="w-12 h-12 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+<div>
+<h4 class="font-bold text-slate-900 text-base" id="auth-loader-step">Connecting to Google Workspace...</h4>
+<p class="text-xs text-slate-500 mt-1" id="auth-loader-sub">Verifying institutional credentials and ECDSA keypair...</p>
+</div>
+<div class="w-48 mx-auto bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-blue-600 h-1.5 rounded-full animate-pulse w-3/4"></div>
+</div>
+</div>
+<!-- Account Selection List -->
+<div class="p-6 space-y-3" id="auth-accounts-list">
+<!-- User 1: Elena Rostova (Student / Researcher) -->
+<button class="w-full p-3 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/40 text-left transition-all flex items-center justify-between group" onclick="simulateAuth('Elena Rostova', 'elena.rostova@stanford.edu', targetPortalModal || 'student')">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-xs">
+            ER
+          </div>
+<div>
+<div class="font-bold text-sm text-slate-900 group-hover:text-blue-700">Elena Rostova</div>
+<div class="text-xs text-slate-500 font-mono">elena.rostova@stanford.edu</div>
+</div>
+</div>
+<span class="text-[11px] px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-semibold uppercase">Stanford .edu</span>
+</button>
+<!-- User 2: Dr. Aris Thorne (University Dean) -->
+<button class="w-full p-3 rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/40 text-left transition-all flex items-center justify-between group" onclick="simulateAuth('Dr. Aris Thorne', 'thorne@cs.cmu.edu', 'university')">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-sm shadow-xs">
+            AT
+          </div>
+<div>
+<div class="font-bold text-sm text-slate-900 group-hover:text-emerald-700">Dr. Aris Thorne</div>
+<div class="text-xs text-slate-500 font-mono">thorne@cs.cmu.edu</div>
+</div>
+</div>
+<span class="text-[11px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold uppercase">CMU SCS</span>
+</button>
+<!-- User 3: Marcus Vance (Enterprise Recruiter) -->
+<button class="w-full p-3 rounded-xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/40 text-left transition-all flex items-center justify-between group" onclick="simulateAuth('Marcus Vance', 'marcus.vance@anthropic.com', 'enterprise')">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm shadow-xs">
+            MV
+          </div>
+<div>
+<div class="font-bold text-sm text-slate-900 group-hover:text-indigo-700">Marcus Vance</div>
+<div class="text-xs text-slate-500 font-mono">marcus.vance@anthropic.com</div>
+</div>
+</div>
+<span class="text-[11px] px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-semibold uppercase">Anthropic Org</span>
+</button>
+<!-- User 4: Super Admin -->
+<button class="w-full p-3 rounded-xl border border-slate-200 hover:border-slate-800 hover:bg-slate-100 text-left transition-all flex items-center justify-between group" onclick="simulateAuth('SecOps Sovereign Admin', 'sec-ops@careercue.internal', 'admin')">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm shadow-xs">
+<span class="material-symbols-outlined text-sm">shield</span>
+</div>
+<div>
+<div class="font-bold text-sm text-slate-900 group-hover:text-slate-900">SecOps Sovereign Admin</div>
+<div class="text-xs text-slate-500 font-mono">sec-ops@careercue.internal</div>
+</div>
+</div>
+<span class="text-[11px] px-2 py-0.5 rounded bg-slate-200 text-slate-800 font-semibold uppercase">Tier-0 Root</span>
+</button>
+</div>
+<!-- Modal Footer -->
+<div class="p-4 bg-slate-50 border-t border-slate-100 text-[11px] text-slate-500 flex items-center justify-between">
+<span>OAuth 2.0 Secure Session</span>
+<span class="text-emerald-700 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Google Verified App
+      </span>
+</div>
+</div>
+</div>
+<!-- Clean Enterprise Light Footer -->
+<footer class="bg-white border-t border-slate-200 py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<div class="flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-base">verified</span>
+<span class="font-medium text-slate-700">ISO/IEC 27001 Certified Network</span>
+</div>
+<span class="hidden sm:inline text-slate-300">•</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-blue-600 text-base">lock</span>
+<span class="font-medium text-slate-700">Zero-Knowledge Credential Escrow</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-6">
+<a class="hover:text-blue-600 transition-colors" href="#" onclick="showToast('Displaying Privacy Framework Agreement'); return false;">Privacy Framework</a>
+<a class="hover:text-blue-600 transition-colors" href="#" onclick="showToast('Displaying Cryptographic Compliance Ledger'); return false;">Compliance Ledger</a>
+<a class="hover:text-blue-600 transition-colors" href="#" onclick="showToast('Displaying Institutional Accredited Registry'); return false;">Institutional Registry</a>
+<span>© 2025 CareerCue Intelligence Inc. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<script>
+  let currentActivePortal = 'gateway';
+  let targetPortalModal = 'student';
+  let isPublicMode = true;
+
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    const msg = document.getElementById('toast-msg');
+    msg.textContent = message;
+    toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+      toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+    }, 3200);
+  }
+
+  function openGoogleModal(targetPortal = 'student') {
+    targetPortalModal = targetPortal;
+    const modal = document.getElementById('google-modal');
+    const loader = document.getElementById('auth-loader-state');
+    const accounts = document.getElementById('auth-accounts-list');
+    loader.classList.add('hidden');
+    accounts.classList.remove('hidden');
+    modal.classList.remove('hidden');
+  }
+
+  function closeGoogleModal() {
+    document.getElementById('google-modal').classList.add('hidden');
+  }
+
+  function simulateAuth(name, email, portalKey) {
+    const accounts = document.getElementById('auth-accounts-list');
+    const loader = document.getElementById('auth-loader-state');
+    const stepText = document.getElementById('auth-loader-step');
+    const subText = document.getElementById('auth-loader-sub');
+
+    accounts.classList.add('hidden');
+    loader.classList.remove('hidden');
+    stepText.textContent = "Connecting to Google Workspace...";
+    subText.textContent = "Negotiating OAuth 2.0 institutional token for " + email;
+
+    setTimeout(() => {
+      stepText.textContent = "Verifying Institutional Credentials...";
+      subText.textContent = "Checking cryptographic ECDSA student/faculty notary keys...";
+    }, 600);
+
+    setTimeout(() => {
+      stepText.textContent = "Authenticated!";
+      subText.textContent = "Welcome, " + name;
+
+      setTimeout(() => {
+        closeGoogleModal();
+        // Update user state banner
+        document.getElementById('auth-status-ribbon').classList.remove('hidden');
+        document.getElementById('user-pill-name').textContent = name;
+        document.getElementById('user-pill-email').textContent = '(' + email + ')';
+        document.getElementById('user-pill-role').textContent = portalKey.toUpperCase();
+        document.getElementById('quick-action-text').textContent = 'Workspace Active';
+
+        showToast("Authenticated via Google Workspace as " + name);
+        switchView(portalKey);
+      }, 500);
+    }, 1100);
+  }
+
+  function handleSignOut() {
+    document.getElementById('auth-status-ribbon').classList.add('hidden');
+    document.getElementById('quick-action-text').textContent = 'Sign In with Google';
+    showToast("Signed out from Google Workspace session.");
+    switchView('gateway');
+  }
+
+  function switchView(viewName) {
+    currentActivePortal = viewName;
+    const views = ['gateway', 'student', 'university', 'enterprise', 'academia', 'admin'];
+
+    views.forEach(v => {
+      const el = document.getElementById('view-' + v);
+      const tabEl = document.getElementById('tab-' + v);
+      const navEl = document.getElementById('nav-btn-' + v);
+
+      if (el) {
+        if (v === viewName) {
+          el.classList.remove('hidden');
+          el.classList.add('block');
+        } else {
+          el.classList.add('hidden');
+          el.classList.remove('block');
+        }
+      }
+
+      if (tabEl) {
+        if (v === viewName) {
+          tabEl.className = "py-2.5 px-3 text-blue-700 border-b-2 border-blue-600 font-bold flex items-center gap-1.5";
+        } else {
+          tabEl.className = "py-2.5 px-3 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-1.5 text-slate-600";
+        }
+      }
+
+      if (navEl) {
+        if (v === viewName) {
+          navEl.className = "px-3 py-1.5 rounded-lg text-blue-700 bg-blue-50 font-semibold transition-colors";
+        } else {
+          navEl.className = "px-3 py-1.5 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors text-slate-600";
+        }
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function togglePrivacy() {
+    isPublicMode = !isPublicMode;
+    const btn = document.getElementById('privacy-status-text');
+    if (isPublicMode) {
+      btn.textContent = "Repository: Public Grants Mode";
+      showToast("Repository visibility updated to: Public Grants Mode");
+    } else {
+      btn.textContent = "Repository: Private / NDA Enclave Mode";
+      showToast("Repository visibility set to: Private / NDA Enclave");
+    }
+  }
+</script>
+</body></html>

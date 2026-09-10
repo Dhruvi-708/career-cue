@@ -1,0 +1,757 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Super Admin Control Center - CareerCue</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-tint": "#0053db",
+            "primary": "#2563eb",
+            "primary-hover": "#1d4ed8",
+            "primary-container": "#dbeafe",
+            "on-primary": "#ffffff",
+            "background": "#f8f9ff",
+            "surface": "#ffffff",
+            "surface-subtle": "#f1f5f9",
+            "on-surface": "#0f172a",
+            "on-surface-variant": "#475569",
+            "outline": "#94a3b8",
+            "outline-light": "#e2e8f0",
+            "secondary": "#0284c7",
+            "success": "#16a34a",
+            "success-bg": "#dcfce7",
+            "warning": "#d97706",
+            "warning-bg": "#fef3c7",
+            "error": "#dc2626",
+            "error-bg": "#fee2e2"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            mono: ["Inter", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-sans text-on-surface antialiased selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
+<!-- Top Global Auth & Security Verification Banner -->
+<div class="w-full bg-slate-900 text-slate-100 text-xs py-2 px-4 md:px-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-800">
+<div class="flex items-center gap-3 flex-wrap">
+<div class="flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-sm text-blue-400">admin_panel_settings</span>
+<span>Signed in as <strong class="text-white font-semibold">Admin Security Director</strong> (<span class="text-slate-300">admin@careercue.com</span>)</span>
+</div>
+<div class="hidden sm:inline-block text-slate-600">|</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold tracking-wide text-[11px]">
+<span class="material-symbols-outlined text-xs text-emerald-400 font-bold">check_circle</span>
+<span>Verified with Google Admin SSO / 2FA Active</span>
+</div>
+</div>
+<div class="flex items-center gap-4 text-slate-300">
+<span class="hidden md:inline-flex items-center gap-1 text-[11px] text-slate-400 font-mono">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        SECURE CLUSTER: US-EAST-01
+      </span>
+<button class="hover:text-white underline underline-offset-2 transition-colors cursor-pointer text-xs flex items-center gap-1">
+<span>Switch Admin Account</span>
+<span class="material-symbols-outlined text-xs">arrow_drop_down</span>
+</button>
+</div>
+</div>
+<!-- Primary Header Nav -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-outline-light shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+<div class="w-full max-w-[1600px] mx-auto h-16 px-4 md:px-8 flex items-center justify-between gap-4">
+<div class="flex items-center gap-6 shrink-0">
+<a class="flex items-center gap-2.5" href="#">
+<img alt="CareerCue Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XC-n16JC-QebsvCw7E1YZZQ2zH8xOUl31FoP0TKSL_0mYpqPGYCFUaooRy9nNPZB0V7-MKnV3V_lCUshYXFhh86wU10AAegoY6jtZ-CnT2RHlAmapGv62SuLGBf9bXk7KQ0IOsTfYfLOTUdZVkxLXpSWdN7k1v8hUdH24rAqiwl4VfFfT-lq0sQ_Cgoj2LT62ercLeCH_En1PHIrGe0_aPq3GJ95fmu7LmEtg8eJkjO5WjnCYk9ObGEgw">
+<div class="flex flex-col">
+<span class="font-bold text-base tracking-tight text-slate-900 leading-tight">CareerCue</span>
+<span class="text-[10px] uppercase font-bold tracking-wider text-primary">Enterprise Admin</span>
+</div>
+</a>
+<div class="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-primary text-xs font-semibold border border-blue-100">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          System Status: All Services Normal
+        </div>
+</div>
+<nav class="hidden lg:flex items-center gap-1 p-1 rounded-xl bg-surface-subtle border border-slate-200/70 text-xs font-medium" data-active-classes="bg-white text-primary shadow-sm font-semibold">
+<a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" data-path="main-platform" href="#">Main Platform</a>
+<a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" data-path="student-portal" href="#">Student Portal</a>
+<a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" data-path="university-hub" href="#">University &amp; Placement</a>
+<a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" data-path="enterprise-portal" href="#">Enterprise Hiring</a>
+<a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" data-path="research-hub" href="#">Academia &amp; Research</a>
+<a aria-current="page" class="px-3 py-1.5 rounded-lg bg-white text-primary shadow-sm font-semibold whitespace-nowrap border border-slate-200/80" data-path="admin-center" href="#">Super Admin</a>
+</nav>
+<div class="flex items-center gap-3 shrink-0">
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium cursor-pointer border border-slate-200">
+<span class="text-slate-500 uppercase text-[10px] font-bold tracking-wider">Role</span>
+<span class="text-slate-900 font-semibold">Security Director</span>
+<span class="material-symbols-outlined text-slate-500 text-base">arrow_drop_down</span>
+</div>
+<button class="relative w-9 h-9 flex items-center justify-center rounded-lg border border-outline-light text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors cursor-pointer" title="Notifications">
+<span class="material-symbols-outlined text-lg">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary ring-2 ring-white"></span>
+</button>
+<div class="flex items-center gap-2 pl-1 border-l border-outline-light">
+<img alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover ring-2 ring-blue-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxATxIBmBdEwK_utIrCdFrV6neSs6AAHUoAwGEj5ENRYX4_b0dOiggjOKiZxpCxD2EUBtNlcoO8EO0HjQ9dS4i9OgxNMUETlDRxMrkz30HHzCmWNchgrUAfTzgo3CdFf4VK7fdXomU5mxhl7AG-WCP-yvwr6JgV6RvlgHjfywUXK9pyYmQBUOwKrDv2onMEJDutfKA3k77UPx_iENi7ug5QPRfygxUcpSr38sbPFAt5_N3aLDxDKch">
+<span class="material-symbols-outlined text-slate-400 text-sm hidden md:inline-block">expand_more</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full bg-background py-8">
+<div class="w-full max-w-[1600px] mx-auto px-4 md:px-8 flex flex-col gap-6">
+<!-- Page Header & Action Bar -->
+<div class="bg-white rounded-2xl p-6 border border-outline-light shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-primary font-semibold text-xs flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              Super Admin Workspace
+            </span>
+<span class="text-xs text-slate-500 font-medium">Enterprise Security &amp; Access Controls</span>
+</div>
+<h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Platform Overview &amp; Control Center
+          </h1>
+<p class="text-sm text-slate-600 max-w-3xl leading-relaxed">
+            Centralized management hub for platform-wide user accounts, access permissions, multi-institution SAML federations, and automated security audit policies.
+          </p>
+</div>
+<div class="flex flex-wrap items-center gap-3 shrink-0">
+<button class="px-4 py-2 rounded-xl bg-white hover:bg-red-50 text-error border border-red-200 font-semibold text-xs md:text-sm transition-colors flex items-center gap-2 shadow-sm cursor-pointer" id="lockdown-btn" onclick="toggleLockdown()">
+<span class="material-symbols-outlined text-base">shield</span>
+<span id="lockdown-text">Trigger Tier-1 Perimeter Seal</span>
+</button>
+<button class="px-4 py-2 rounded-xl bg-primary hover:bg-primary-hover text-white font-semibold text-xs md:text-sm transition-all shadow-sm flex items-center gap-2 cursor-pointer">
+<span class="material-symbols-outlined text-base">download</span>
+<span>Export Security Audit Report</span>
+</button>
+</div>
+</div>
+<!-- 4 Core Portal Metric Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
+<!-- Metric 1: Students -->
+<div class="p-5 rounded-2xl bg-white border border-outline-light shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Portal User Group #1</span>
+<h3 class="text-base font-bold text-slate-900">Student Accounts</h3>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">Active</span>
+</div>
+<div class="mt-5 flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="text-3xl font-extrabold text-slate-900 tracking-tight">42,108</span>
+<span class="text-xs text-slate-500 mt-0.5">Verified candidate credentials</span>
+</div>
+<span class="text-xs font-bold text-emerald-600 flex items-center gap-0.5 bg-emerald-50 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">trending_up</span> +8.4%
+            </span>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+<span>Identity standard: W3C DID</span>
+<span class="font-semibold text-primary">ZK-Protected</span>
+</div>
+</div>
+<!-- Metric 2: Universities -->
+<div class="p-5 rounded-2xl bg-white border border-outline-light shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">account_balance</span>
+</div>
+<div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Portal User Group #2</span>
+<h3 class="text-base font-bold text-slate-900">Universities &amp; Hubs</h3>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold">SAML SSO</span>
+</div>
+<div class="mt-5 flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="text-3xl font-extrabold text-slate-900 tracking-tight">312</span>
+<span class="text-xs text-slate-500 mt-0.5">Accredited university partners</span>
+</div>
+<span class="text-xs font-bold text-sky-700 flex items-center gap-0.5 bg-sky-50 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">check_circle</span> 100% Up
+            </span>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+<span>Registrar Integration</span>
+<span class="font-semibold text-slate-700">FERPA Compliant</span>
+</div>
+</div>
+<!-- Metric 3: Enterprise -->
+<div class="p-5 rounded-2xl bg-white border border-outline-light shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">corporate_fare</span>
+</div>
+<div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Portal User Group #3</span>
+<h3 class="text-base font-bold text-slate-900">Companies &amp; Employers</h3>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-semibold">SOC-2 Verified</span>
+</div>
+<div class="mt-5 flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="text-3xl font-extrabold text-slate-900 tracking-tight">1,452</span>
+<span class="text-xs text-slate-500 mt-0.5">Active hiring organizations</span>
+</div>
+<span class="text-xs font-bold text-amber-700 flex items-center gap-0.5 bg-amber-50 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">pending</span> 3 In Review
+            </span>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+<span>Tenant Isolation</span>
+<span class="font-semibold text-indigo-600">Encrypted mTLS</span>
+</div>
+</div>
+<!-- Metric 4: Research Labs -->
+<div class="p-5 rounded-2xl bg-white border border-outline-light shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">biotech</span>
+</div>
+<div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Portal User Group #4</span>
+<h3 class="text-base font-bold text-slate-900">Research &amp; Labs</h3>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-xs font-semibold">Air-Gapped</span>
+</div>
+<div class="mt-5 flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="text-3xl font-extrabold text-slate-900 tracking-tight">864</span>
+<span class="text-xs text-slate-500 mt-0.5">Lead researchers &amp; postdocs</span>
+</div>
+<span class="text-xs font-bold text-purple-700 flex items-center gap-0.5 bg-purple-50 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">vpn_key</span> Sealed Enclave
+            </span>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+<span>IP Protection</span>
+<span class="font-semibold text-purple-700">Strict NDA Mode</span>
+</div>
+</div>
+</div>
+<!-- User Directory & Roles Table -->
+<div class="p-6 rounded-2xl bg-white border border-outline-light shadow-sm flex flex-col gap-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">manage_accounts</span>
+<h2 class="text-lg font-bold text-slate-900">Manage User Accounts &amp; Roles</h2>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">
+              Quickly find, verify, manage permissions, or revoke access for any account across the entire ecosystem.
+            </p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative w-full sm:w-72">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">search</span>
+<input class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="identity-search" oninput="filterAccounts()" placeholder="Search name, email, DID or organization..." type="text">
+</div>
+<select class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer" id="role-filter" onchange="filterAccounts()">
+<option value="all">All User Types</option>
+<option value="student">Students</option>
+<option value="university">Universities</option>
+<option value="enterprise">Companies</option>
+<option value="research">Researchers</option>
+</select>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto rounded-xl border border-slate-200">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-[11px] font-bold uppercase tracking-wider">
+<th class="py-3 px-4">Account / Organization</th>
+<th class="py-3 px-4">User Group</th>
+<th class="py-3 px-4">Authentication Method</th>
+<th class="py-3 px-4">Assigned Network Enclave</th>
+<th class="py-3 px-4">Verification Status</th>
+<th class="py-3 px-4 text-right">Admin Actions</th>
+</tr>
+</thead>
+<tbody class="text-xs text-slate-700 divide-y divide-slate-100" id="identity-table-body">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50/80 transition-colors identity-row" data-name="Apex Quantum Systems enterprise.apexquantum.internal did:cue:ent:09ab712" data-type="enterprise">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-700 font-bold flex items-center justify-center text-xs border border-indigo-100">
+                      AQ
+                    </div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-sm">Apex Quantum Systems Corp.</span>
+<span class="text-[11px] font-mono text-slate-500">did:cue:ent:09ab712c98d</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 font-medium text-[11px] border border-indigo-200">Company #1042</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-medium text-slate-800">Okta SAML 2.0 (Active)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="text-slate-600 font-mono text-[11px] bg-slate-100 px-2 py-0.5 rounded">Corp-Recruit-88</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium text-[11px]">
+<span class="material-symbols-outlined text-xs">verified</span> Fully Verified
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-primary hover:bg-blue-50 transition-colors cursor-pointer" onclick="triggerAction('Apex Quantum Systems', 'Audit View')" title="Audit View">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-sky-50 transition-colors cursor-pointer" onclick="triggerAction('Apex Quantum Systems', 'Force Re-Authentication')" title="Force Re-Authentication">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-colors cursor-pointer" onclick="triggerAction('Apex Quantum Systems', 'Re-sync SAML')" title="Re-sync SAML">
+<span class="material-symbols-outlined text-base">sync</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-error hover:bg-red-50 transition-colors cursor-pointer" onclick="triggerAction('Apex Quantum Systems', 'Suspend Account')" title="Suspend Account">
+<span class="material-symbols-outlined text-base">lock_reset</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50/80 transition-colors identity-row" data-name="Carnegie Mellon University registrar.cmu.edu did:cue:uni:9411fa0" data-type="university">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-sky-50 text-sky-700 font-bold flex items-center justify-center text-xs border border-sky-100">
+                      CM
+                    </div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-sm">Carnegie Mellon University</span>
+<span class="text-[11px] font-mono text-slate-500">did:cue:uni:9411fa0b321</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-md bg-sky-50 text-sky-700 font-medium text-[11px] border border-sky-200">University Hub</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-medium text-slate-800">InCommon Shibboleth</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="text-slate-600 font-mono text-[11px] bg-slate-100 px-2 py-0.5 rounded">Registrar-CMU</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium text-[11px]">
+<span class="material-symbols-outlined text-xs">verified</span> eIDAS High
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-primary hover:bg-blue-50 transition-colors cursor-pointer" onclick="triggerAction('Carnegie Mellon Univ', 'Audit View')" title="Audit View">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-sky-50 transition-colors cursor-pointer" onclick="triggerAction('Carnegie Mellon Univ', 'Force Re-Authentication')" title="Force Re-Authentication">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-colors cursor-pointer" onclick="triggerAction('Carnegie Mellon Univ', 'Re-sync SAML')" title="Re-sync SAML">
+<span class="material-symbols-outlined text-base">sync</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-error hover:bg-red-50 transition-colors cursor-pointer" onclick="triggerAction('Carnegie Mellon Univ', 'Suspend Account')" title="Suspend Account">
+<span class="material-symbols-outlined text-base">lock_reset</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50/80 transition-colors identity-row" data-name="Dr. Elena Vance AI Robotics lab44 vance@mit.edu did:cue:res:44a709" data-type="research">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-purple-50 text-purple-700 font-bold flex items-center justify-center text-xs border border-purple-100">
+                      EV
+                    </div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-sm">Dr. Elena Vance — Lab #44</span>
+<span class="text-[11px] font-mono text-slate-500">did:cue:res:44a709fe100</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 font-medium text-[11px] border border-purple-200">Academia PI</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-purple-500"></span>
+<span class="font-medium text-slate-800">FIDO2 Hardware Key</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="text-slate-600 font-mono text-[11px] bg-slate-100 px-2 py-0.5 rounded">Enclave-NDA-44</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 font-medium text-[11px]">
+<span class="material-symbols-outlined text-xs">lock</span> Air-Gapped
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-primary hover:bg-blue-50 transition-colors cursor-pointer" onclick="triggerAction('Dr. Elena Vance', 'Audit View')" title="Audit View">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-sky-50 transition-colors cursor-pointer" onclick="triggerAction('Dr. Elena Vance', 'Force Re-Authentication')" title="Force Re-Authentication">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-colors cursor-pointer" onclick="triggerAction('Dr. Elena Vance', 'Re-sync SAML')" title="Re-sync SAML">
+<span class="material-symbols-outlined text-base">sync</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-error hover:bg-red-50 transition-colors cursor-pointer" onclick="triggerAction('Dr. Elena Vance', 'Suspend Account')" title="Suspend Account">
+<span class="material-symbols-outlined text-base">lock_reset</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50/80 transition-colors identity-row" data-name="Marcus Sterling m.sterling@alumni.cmu.edu did:cue:usr:887103a" data-type="student">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-blue-50 text-primary font-bold flex items-center justify-center text-xs border border-blue-100">
+                      MS
+                    </div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-sm">Marcus Sterling</span>
+<span class="text-[11px] font-mono text-slate-500">did:cue:usr:887103aff02</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-medium text-[11px] border border-blue-200">Candidate</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-medium text-slate-800">Passkey / WebAuthn</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="text-slate-600 font-mono text-[11px] bg-slate-100 px-2 py-0.5 rounded">Candidate-Pool-1</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium text-[11px]">
+<span class="material-symbols-outlined text-xs">check_circle</span> ZK Verified
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-primary hover:bg-blue-50 transition-colors cursor-pointer" onclick="triggerAction('Marcus Sterling', 'Audit View')" title="Audit View">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-sky-50 transition-colors cursor-pointer" onclick="triggerAction('Marcus Sterling', 'Force Re-Authentication')" title="Force Re-Authentication">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-colors cursor-pointer" onclick="triggerAction('Marcus Sterling', 'Re-sync SAML')" title="Re-sync SAML">
+<span class="material-symbols-outlined text-base">sync</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-error hover:bg-red-50 transition-colors cursor-pointer" onclick="triggerAction('Marcus Sterling', 'Suspend Account')" title="Suspend Account">
+<span class="material-symbols-outlined text-base">lock_reset</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Toast Feedback Notification -->
+<div class="hidden p-3 rounded-xl bg-slate-900 text-white flex items-center justify-between shadow-lg" id="action-toast">
+<div class="flex items-center gap-2 text-xs">
+<span class="material-symbols-outlined text-emerald-400 text-base">verified</span>
+<span id="action-toast-msg">Action dispatched successfully.</span>
+</div>
+<button class="text-slate-400 hover:text-white cursor-pointer" onclick="document.getElementById('action-toast').classList.add('hidden')">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</div>
+<!-- Activity Logs & Settings Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Activity & Audit Logs (2 Cols) -->
+<div class="lg:col-span-2 p-6 rounded-2xl bg-white border border-outline-light shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">history</span>
+<h2 class="text-lg font-bold text-slate-900">Recent Platform Activity &amp; Audit Logs</h2>
+</div>
+<span class="text-xs font-semibold text-emerald-600 flex items-center gap-1 bg-emerald-50 px-2 py-1 rounded-full border border-emerald-100">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Live Sync
+            </span>
+</div>
+<div class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
+<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-blue-50/40 transition-colors flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-blue-100 text-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">work</span>
+</div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-xs md:text-sm">Apex Quantum Systems posted Quantum Algorithm Internship</span>
+<span class="text-xs text-slate-600 mt-0.5">Role posted under verified enterprise pool. Automated student quota: 15 allocations.</span>
+<span class="font-mono text-[10px] text-slate-400 mt-1">Hash: 0x8a7f92bc...e19 • Scope: org.apex.quantum</span>
+</div>
+</div>
+<span class="text-[11px] font-medium text-slate-400 shrink-0">12s ago</span>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-sky-50/40 transition-colors flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-sky-100 text-secondary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-xs md:text-sm">Carnegie Mellon University verified 42 students</span>
+<span class="text-xs text-slate-600 mt-0.5">Batch credential issuance completed for MSc Computer Science cohort.</span>
+<span class="font-mono text-[10px] text-slate-400 mt-1">Batch DID: did:cue:batch:cmu-2025-04 • Status: Confirmed</span>
+</div>
+</div>
+<span class="text-[11px] font-medium text-slate-400 shrink-0">1m ago</span>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-purple-50/40 transition-colors flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">lock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-xs md:text-sm">Researcher Dr. Vance switched Lab #44 to Private NDA Mode</span>
+<span class="text-xs text-slate-600 mt-0.5">Airgap safety enabled. External recruiter read access isolated automatically.</span>
+<span class="font-mono text-[10px] text-slate-400 mt-1">Audit Policy: Enclave Guardian Verified</span>
+</div>
+</div>
+<span class="text-[11px] font-medium text-slate-400 shrink-0">4m ago</span>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-amber-50/40 transition-colors flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">vpn_key</span>
+</div>
+<div class="flex flex-col">
+<span class="font-semibold text-slate-900 text-xs md:text-sm">Stanford Registrar SAML Certificate Key Rollover</span>
+<span class="text-xs text-slate-600 mt-0.5">Automated metadata rotation signed with X.509 cert renewal. Valid through 2028.</span>
+<span class="font-mono text-[10px] text-slate-400 mt-1">Issuer: InCommon Federation • Status: Healthy</span>
+</div>
+</div>
+<span class="text-[11px] font-medium text-slate-400 shrink-0">18m ago</span>
+</div>
+</div>
+</div>
+<!-- System Settings & Scoring Controls (1 Col) -->
+<div class="p-6 rounded-2xl bg-white border border-outline-light shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">tune</span>
+<h2 class="text-lg font-bold text-slate-900">System Settings &amp; Scoring Controls</h2>
+</div>
+<div class="flex flex-col gap-4 pt-1">
+<!-- Setting 1: Benchmark slider -->
+<div class="flex flex-col gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-800">Benchmark Scoring Threshold</span>
+<span class="text-xs font-bold text-primary font-mono" id="benchmark-val">85%</span>
+</div>
+<input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary" max="98" min="60" oninput="document.getElementById('benchmark-val').innerText = this.value + '%'" type="range" value="85">
+<span class="text-[11px] text-slate-500">Minimum automated skill score required to grant instant verification status.</span>
+</div>
+<!-- Setting 2: LLM Proctoring -->
+<div class="flex flex-col gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-800">AI Proctoring Sensitivity</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">HIGH</span>
+</div>
+<select class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-800 text-xs font-medium focus:ring-1 focus:ring-primary focus:outline-none cursor-pointer">
+<option>Strict (0.92 Attention Entropy)</option>
+<option selected="">High (0.84 Semantic Drift Alert)</option>
+<option>Permissive (Sandbox Audit Only)</option>
+</select>
+<span class="text-[11px] text-slate-500">Flags potential resume hallucinations and interview discrepancies.</span>
+</div>
+<!-- Setting 3: Enterprise Cap -->
+<div class="flex flex-col gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-800">Employer Daily Direct Outreach Cap</span>
+<span class="text-[11px] text-slate-500">Max / Day</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-7 h-7 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 flex items-center justify-center text-slate-700 font-bold text-sm cursor-pointer" onclick="adjustCap(-50)">-</button>
+<div class="flex-1 text-center font-mono font-semibold text-xs py-1 rounded-lg bg-white border border-slate-200 text-slate-800" id="quota-val">500 Inquiries</div>
+<button class="w-7 h-7 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 flex items-center justify-center text-slate-700 font-bold text-sm cursor-pointer" onclick="adjustCap(50)">+</button>
+</div>
+<span class="text-[11px] text-slate-500">Prevents candidate message spam from corporate recruiters.</span>
+</div>
+<!-- Setting 4: Maintenance Toggle -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-slate-800">Maintenance Window</span>
+<span class="text-[11px] text-slate-500">Locks outbound SSO logins</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="maintenance-toggle" onchange="toggleMaintenance()" type="checkbox">
+<div class="w-10 h-5 bg-slate-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Infrastructure Standards Footer Badges -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 rounded-xl bg-white border border-outline-light shadow-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-50 text-primary flex items-center justify-center shrink-0 border border-blue-100">
+<span class="material-symbols-outlined text-xl">memory</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-900">AWS Nitro Secure Enclaves</span>
+<span class="text-[11px] text-slate-500">Hardware-isolated signers with zero external exposure.</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white border border-outline-light shadow-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
+<span class="material-symbols-outlined text-xl">shield</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-900">SOC-2 Type II Attested</span>
+<span class="text-[11px] text-slate-500">Continuous automated compliance monitoring &amp; verification.</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white border border-outline-light shadow-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 border border-purple-100">
+<span class="material-symbols-outlined text-xl">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-900">Zero Data Leakage Architecture</span>
+<span class="text-[11px] text-slate-500">Multi-tenant cryptographic walls preventing data crossover.</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Clean Footer -->
+<footer class="w-full bg-white border-t border-outline-light py-6">
+<div class="w-full max-w-[1600px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<div class="flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-1 text-slate-700 font-medium">
+<span class="material-symbols-outlined text-emerald-600 text-base">verified</span>
+<span>ISO/IEC 27001 Certified Enterprise Platform</span>
+</div>
+<span class="hidden sm:inline text-slate-300">•</span>
+<div class="hidden sm:flex items-center gap-1 text-slate-600">
+<span class="material-symbols-outlined text-primary text-base">lock</span>
+<span>Zero-Knowledge Escrow Protected</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-6 text-slate-600">
+<a class="hover:text-primary transition-colors" href="#">Security Whitepaper</a>
+<a class="hover:text-primary transition-colors" href="#">Compliance Ledger</a>
+<a class="hover:text-primary transition-colors" href="#">System Audit Status</a>
+<span class="text-slate-400">© 2025 CareerCue Intelligence Inc.</span>
+</div>
+</div>
+</footer>
+<script>
+    let currentQuota = 500;
+    let lockdownActive = false;
+
+    function filterAccounts() {
+      const search = (document.getElementById('identity-search').value || '').toLowerCase();
+      const role = document.getElementById('role-filter').value;
+      const rows = document.querySelectorAll('.identity-row');
+
+      rows.forEach(row => {
+        const type = row.getAttribute('data-type');
+        const name = (row.getAttribute('data-name') || '').toLowerCase();
+        const matchesRole = role === 'all' || type === role;
+        const matchesSearch = !search || name.includes(search);
+
+        if (matchesRole && matchesSearch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function triggerAction(target, actionName) {
+      const toast = document.getElementById('action-toast');
+      const toastMsg = document.getElementById('action-toast-msg');
+      toastMsg.innerText = `Action '${actionName}' executed successfully for ${target}.`;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4000);
+    }
+
+    function adjustCap(delta) {
+      currentQuota = Math.max(50, Math.min(2000, currentQuota + delta));
+      document.getElementById('quota-val').innerText = currentQuota + ' Inquiries';
+    }
+
+    function toggleMaintenance() {
+      const isChecked = document.getElementById('maintenance-toggle').checked;
+      const toast = document.getElementById('action-toast');
+      const toastMsg = document.getElementById('action-toast-msg');
+      toastMsg.innerText = isChecked 
+        ? 'Maintenance Mode ACTIVATED: Outbound SSO logins temporarily paused.' 
+        : 'Maintenance Mode DEACTIVATED: Normal platform access restored.';
+      toast.classList.remove('hidden');
+    }
+
+    function toggleLockdown() {
+      lockdownActive = !lockdownActive;
+      const btn = document.getElementById('lockdown-btn');
+      const text = document.getElementById('lockdown-text');
+      if (lockdownActive) {
+        btn.classList.remove('bg-white', 'text-error', 'border-red-200');
+        btn.classList.add('bg-error', 'text-white', 'border-error');
+        text.innerText = 'PERIMETER SEALED (Click to Unlock)';
+      } else {
+        btn.classList.remove('bg-error', 'text-white', 'border-error');
+        btn.classList.add('bg-white', 'text-error', 'border-red-200');
+        text.innerText = 'Trigger Tier-1 Perimeter Seal';
+      }
+    }
+  </script>
+</body></html>

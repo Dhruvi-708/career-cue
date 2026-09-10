@@ -1,0 +1,633 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#004ac6",
+            "surface-variant": "#d3e4fe",
+            "tertiary-fixed-dim": "#93ccff",
+            "secondary-container": "#dae2fd",
+            "on-surface": "#0b1c30",
+            "tertiary": "#005a89",
+            "on-background": "#0b1c30",
+            "on-primary-container": "#ffffff",
+            "tertiary-fixed": "#cce5ff",
+            "surface-dim": "#cbdbf5",
+            "surface-container-low": "#f8faff",
+            "secondary": "#475569",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-primary-fixed": "#00174b",
+            "on-tertiary-fixed": "#001d31",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed-variant": "#3f465c",
+            "tertiary-container": "#0073ae",
+            "on-tertiary-container": "#e7f2ff",
+            "surface-container": "#f1f5f9",
+            "surface-container-highest": "#e2e8f0",
+            "surface": "#ffffff",
+            "on-secondary-fixed": "#131b2e",
+            "outline-variant": "#e2e8f0",
+            "on-secondary": "#ffffff",
+            "primary-container": "#2563eb",
+            "inverse-surface": "#213145",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#b4c5ff",
+            "surface-tint": "#0053db",
+            "error": "#ba1a1a",
+            "inverse-primary": "#b4c5ff",
+            "secondary-fixed-dim": "#bec6e0",
+            "background": "#f8fafd",
+            "inverse-on-surface": "#eaf1ff",
+            "outline": "#cbd5e1",
+            "surface-container-high": "#eef2f6",
+            "on-surface-variant": "#475569",
+            "on-secondary-container": "#334155",
+            "on-tertiary-fixed-variant": "#004b73",
+            "on-primary-fixed-variant": "#003ea8",
+            "secondary-fixed": "#dae2fd",
+            "primary-fixed": "#dbe1ff",
+            "surface-bright": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.375rem",
+            "xl": "0.5rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "label-sm": ["Inter", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "label-lg": ["Inter", "sans-serif"],
+            "code-sm": ["Inter", "sans-serif"],
+            "headline-xl-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "display-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-xl": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "display-lg-mobile": ["Plus Jakarta Sans", "sans-serif"]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-white">
+<!-- Top Google Authentication / Account Bar -->
+<div class="bg-white border-b border-outline-variant px-4 lg:px-8 py-2.5 text-sm">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2.5 text-xs sm:text-sm">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">
+<!-- Google 'G' Logo SVG -->
+<svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.79-2.1-6.74-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.26 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.16 0 9.98 0 12s.45 3.84 1.24 5.42l4.02-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.02 3.15c.95-2.83 3.62-4.98 6.74-4.98z" fill="#EA4335"></path>
+</svg>
+          ✓ Verified with Google
+        </span>
+<span class="text-slate-600">Signed in as <strong class="text-slate-900 font-semibold">Elena Rostova</strong> (<span class="text-primary font-mono text-xs">elena.rostova@stanford.edu</span>)</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg transition-colors" onclick="alert('Account Switcher: Ready for Stanford SSO / Google Workspace auth')">
+<svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.79-2.1-6.74-4.93H1.24v3.15C3.26 21.36 7.34 24 12 24z" fill="#34A853"></path>
+<path d="M5.26 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.16 0 9.98 0 12s.45 3.84 1.24 5.42l4.02-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.58l4.02 3.15c.95-2.83 3.62-4.98 6.74-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Switch Account / Sign in with Google</span>
+</button>
+<span class="text-xs text-slate-400 hidden sm:inline">|</span>
+<a class="text-xs text-slate-500 hover:text-primary transition-colors hidden sm:inline" href="#">Portal Guide</a>
+</div>
+</div>
+</div>
+<!-- Primary Header Navigation -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+<div class="max-w-7xl mx-auto h-16 px-4 lg:px-8 flex items-center justify-between gap-4">
+<div class="flex items-center gap-6 shrink-0">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-white font-bold text-lg shadow-sm">
+            C
+          </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-base text-slate-900 font-bold tracking-tight leading-none">CareerCue</span>
+<span class="text-[11px] font-medium text-slate-500 tracking-wide uppercase">Verified Engine</span>
+</div>
+</div>
+<div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 border border-blue-100">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-xs text-primary font-semibold">Live Verified Engine</span>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-1 p-1 rounded-lg bg-slate-100/80 border border-slate-200 text-xs font-medium">
+<a class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" href="#">Main Platform</a>
+<a class="px-3 py-1.5 rounded-md bg-white text-primary-container font-semibold shadow-xs whitespace-nowrap border border-slate-200" href="#">Student Portal</a>
+<a class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" href="#">University &amp; Placement</a>
+<a class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" href="#">Enterprise Hiring</a>
+<a class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" href="#">Academia &amp; Research</a>
+<a class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap" href="#">Super Admin</a>
+</nav>
+<div class="flex items-center gap-3 shrink-0">
+<div class="relative hidden sm:flex items-center">
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors cursor-pointer text-xs">
+<span class="uppercase tracking-wider text-slate-400 font-semibold">Role:</span>
+<span class="font-semibold text-slate-800">Student Scholar</span>
+</div>
+</div>
+<div class="relative flex items-center justify-center w-9 h-9 rounded-lg border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-lg">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500"></span>
+</div>
+<div class="flex items-center gap-2 pl-1 border-l border-slate-200">
+<img alt="Elena Rostova Profile" class="w-8 h-8 rounded-full object-cover border border-slate-300 shadow-xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxATxIBmBdEwK_utIrCdFrV6neSs6AAHUoAwGEj5ENRYX4_b0dOiggjOKiZxpCxD2EUBtNlcoO8EO0HjQ9dS4i9OgxNMUETlDRxMrkz30HHzCmWNchgrUAfTzgo3CdFf4VK7fdXomU5mxhl7AG-WCP-yvwr6JgV6RvlgHjfywUXK9pyYmQBUOwKrDv2onMEJDutfKA3k77UPx_iENi7ug5QPRfygxUcpSr38sbPFAt5_N3aLDxDKch">
+<span class="material-symbols-outlined text-slate-400 text-sm hidden md:inline-block">expand_more</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="w-full min-h-screen bg-slate-50/60 pb-16">
+<div class="max-w-7xl mx-auto px-4 lg:px-8 pt-8">
+<!-- Student Dossier Greeting Strip -->
+<div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 mb-8 bg-white border border-slate-200 p-6 rounded-xl shadow-xs">
+<div class="flex flex-col md:flex-row items-start md:items-center gap-5">
+<div class="relative">
+<img alt="Elena Rostova portrait" class="w-16 h-16 rounded-xl object-cover border border-slate-200 shadow-xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIHe69Ivjgr8FB3Xz2rKFCavf1zfA_vnyX52aZ8wbjBF1MIk_pooCVKsJnil4Z5ltPnWymFIlZJwjzt_7m6P9fk6EtMlcdLWShNrSDN2cnaQ0Zu1bPBOPHToxMHRrLF9vjgsNBiQrs1k5FGymvWO6UJLfh9Ya5IiFQPjLJSyfD-WNaykdtfH7dtgVTfCM5dOyYmCOJqa_JqYtCk7ofFccGUlatwscAyN5PaWAo4KMvMsWGkj5tsiTB">
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-600 flex items-center justify-center text-white shadow-xs" title="Verified Account">
+<span class="material-symbols-outlined text-xs leading-none">verified</span>
+</span>
+</div>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-2">
+<span class="text-xs font-mono font-medium text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded">UID: CC-88392-RU</span>
+<span class="text-xs font-semibold text-primary-container bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">Fall 2025 Co-Op Ready</span>
+</div>
+<h1 class="text-2xl font-bold text-slate-900 mt-1">Welcome back, Elena Rostova</h1>
+<p class="text-sm text-slate-600">B.S. Computer Science &amp; Data Systems, Junior • Stanford Engineering Roster</p>
+</div>
+</div>
+<!-- Quick Telemetry Badges -->
+<div class="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+<div class="flex flex-col bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-lg min-w-[130px]">
+<span class="text-xs text-slate-500 font-medium">Passport Score</span>
+<span class="text-2xl text-primary-container font-extrabold leading-tight">924<span class="text-xs text-slate-400 font-normal ml-1">/1000</span></span>
+</div>
+<div class="flex flex-col bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-lg min-w-[130px]">
+<span class="text-xs text-slate-500 font-medium">Target Horizon</span>
+<span class="text-base font-bold text-slate-800 truncate leading-tight mt-1">Cloud &amp; ML Sys</span>
+</div>
+<button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary-container hover:bg-primary text-white text-sm font-semibold transition-colors shadow-xs" id="refreshDiagnosticsBtn">
+<span class="material-symbols-outlined text-base">sync</span>
+<span>Re-run Diagnostics</span>
+</button>
+</div>
+</div>
+<!-- Bento Core Grid: Diagnostic Radar & Copilot -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+<!-- Module 1: Diagnostic Radar & Benchmark (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col bg-white border border-slate-200 p-6 rounded-xl shadow-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Algorithmic Assessment Engine</span>
+<h2 class="text-lg font-bold text-slate-900">AI Skill Gap Diagnostic &amp; Benchmark</h2>
+</div>
+<div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full self-start">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+<span class="text-xs font-semibold text-emerald-800">84% Readiness • Cloud &amp; ML Engineer</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mt-5">
+<!-- Radial Visualizer -->
+<div class="md:col-span-5 flex flex-col items-center justify-center bg-slate-50 border border-slate-200 p-5 rounded-xl">
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+<circle class="text-slate-200" cx="60" cy="60" fill="transparent" r="50" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary-container" cx="60" cy="60" fill="transparent" r="50" stroke="currentColor" stroke-dasharray="314.159" stroke-dashoffset="50.26" stroke-linecap="round" stroke-width="8"></circle>
+<circle class="text-slate-200" cx="60" cy="60" fill="transparent" r="38" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-slate-400" cx="60" cy="60" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="238.76" stroke-dashoffset="47.75" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center text-center">
+<span class="text-3xl text-slate-900 font-extrabold leading-none">84%</span>
+<span class="text-xs text-slate-500 font-medium mt-1">Cohort P92</span>
+</div>
+</div>
+<div class="flex items-center justify-center gap-4 mt-3 text-center">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="text-xs text-slate-600 font-medium">Readiness</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+<span class="text-xs text-slate-600 font-medium">Top Tier Parity</span>
+</div>
+</div>
+</div>
+<!-- Identified Critical Technical Gaps -->
+<div class="md:col-span-7 flex flex-col justify-between space-y-3">
+<span class="text-xs uppercase tracking-wider font-semibold text-slate-500">Identified Skill Delta (Immediate Attention)</span>
+<div class="flex flex-col gap-2">
+<!-- Gap Item 1 -->
+<div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-start justify-between gap-3 hover:bg-slate-100/70 transition-colors">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-amber-600 text-base mt-0.5">priority_high</span>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Distributed Consensus (Raft/Paxos)</span>
+<span class="text-xs text-slate-500">System design bottleneck • 42% benchmark deficit</span>
+</div>
+</div>
+<button class="shrink-0 px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-primary hover:bg-primary-container hover:text-white text-xs font-semibold transition-colors">
+                    Resolve
+                  </button>
+</div>
+<!-- Gap Item 2 -->
+<div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-start justify-between gap-3 hover:bg-slate-100/70 transition-colors">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-blue-600 text-base mt-0.5">adjust</span>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">PyTorch Tensor Optimizations</span>
+<span class="text-xs text-slate-500">CUDA memory kernel profiling • 28% gap</span>
+</div>
+</div>
+<button class="shrink-0 px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-primary hover:bg-primary-container hover:text-white text-xs font-semibold transition-colors">
+                    Resolve
+                  </button>
+</div>
+<!-- Gap Item 3 -->
+<div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-start justify-between gap-3 hover:bg-slate-100/70 transition-colors">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-slate-600 text-base mt-0.5">schedule</span>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">FastAPI Production Deployments</span>
+<span class="text-xs text-slate-500">Asynchronous gunicorn/uvicorn microservice ops</span>
+</div>
+</div>
+<button class="shrink-0 px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-primary hover:bg-primary-container hover:text-white text-xs font-semibold transition-colors">
+                    Resolve
+                  </button>
+</div>
+</div>
+<div class="flex items-center justify-between text-slate-500 pt-1 text-xs">
+<span class="flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs text-emerald-600">verified_user</span> Verified via LeetCode &amp; GitHub AST Scan
+                </span>
+<span class="font-semibold text-primary cursor-pointer hover:underline">Full Breakdown →</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Module 4: Career Advisor AI Copilot Widget (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between bg-white border border-slate-200 p-6 rounded-xl shadow-xs">
+<div class="flex items-center justify-between pb-3 border-b border-slate-100">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">smart_toy</span>
+</span>
+<div class="flex flex-col">
+<h2 class="text-base font-bold text-slate-900">Career Advisor AI Copilot</h2>
+<span class="text-xs text-slate-500">Continuous ATS &amp; Proctor Active</span>
+</div>
+</div>
+<span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600 font-mono">v4.2-Instant</span>
+</div>
+<!-- Copilot Interactive Prompt Stream -->
+<div class="my-4 space-y-3">
+<div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">auto_awesome</span> Instant Suggestion
+                </span>
+<span class="text-xs text-slate-400">2m ago</span>
+</div>
+<p class="text-xs leading-relaxed text-slate-700">
+                Elena, your GitHub repo <span class="font-mono text-primary font-semibold">distributed-raft-kv</span> was parsed. Adding test coverage for split-brain partitions will bump your Stripe Match from 91% to 96%.
+              </p>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:border-slate-300 transition-colors text-left group" id="openInterviewBtn">
+<span class="material-symbols-outlined text-primary group-hover:scale-105 transition-transform">videocam</span>
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-slate-900 leading-tight">Mock Interview</span>
+<span class="text-[11px] text-slate-500">15 min System Design</span>
+</div>
+</button>
+<button class="flex items-center gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:border-slate-300 transition-colors text-left group" id="openResumeAtsBtn">
+<span class="material-symbols-outlined text-emerald-600 group-hover:scale-105 transition-transform">description</span>
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-slate-900 leading-tight">Resume ATS Parser</span>
+<span class="text-[11px] text-slate-500">Score: 94/100</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Chat / Prompt Quick Query -->
+<div class="relative mt-2">
+<input class="w-full h-10 px-3.5 pr-10 rounded-lg bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-xs" id="copilotQueryInput" placeholder="Ask AI Copilot (e.g. 'Simulate DeepMind coding question')..." type="text">
+<button class="absolute right-2 top-2 w-6 h-6 flex items-center justify-center rounded text-primary hover:bg-blue-50" id="sendCopilotQuery">
+<span class="material-symbols-outlined text-base">arrow_upward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Module 2: Personalized AI Learning & Course Roadmap -->
+<div class="flex flex-col bg-white border border-slate-200 p-6 rounded-xl shadow-xs mb-8">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100 mb-5">
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Deterministic Trajectory</span>
+<h2 class="text-xl font-bold text-slate-900">Personalized AI Learning &amp; Course Roadmap</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-slate-500 font-medium">Path: High-Throughput Distributed AI Systems</span>
+<button class="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors border border-slate-200">Change Target</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
+<!-- Phase 1: Completed -->
+<div class="flex flex-col bg-slate-50 border border-slate-200 p-5 rounded-xl relative shadow-xs">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">Phase 01 • Completed</span>
+<span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+</div>
+<h3 class="text-base font-bold text-slate-900">Advanced Data Structures &amp; SQL Mastery</h3>
+<p class="text-xs text-slate-600 my-2 leading-relaxed">
+              B-Trees, concurrency locks, indexing algorithms, and window partition query design.
+            </p>
+<div class="mt-auto pt-3 flex items-center justify-between border-t border-slate-200/60">
+<div class="flex items-center gap-1">
+<span class="text-sm font-bold text-emerald-700">96%</span>
+<span class="text-[11px] text-slate-500">Certified Score</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-slate-200/80 text-slate-700 text-[11px] font-medium">Uni Credited</span>
+</div>
+</div>
+<!-- Phase 2: In Progress -->
+<div class="flex flex-col bg-blue-50/40 border-2 border-primary/30 p-5 rounded-xl relative shadow-xs">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-primary uppercase tracking-wide">Phase 02 • In Progress</span>
+<span class="text-xs font-bold text-primary">68% Complete</span>
+</div>
+<h3 class="text-base font-bold text-slate-900">Microservices Architecture &amp; Containerization</h3>
+<p class="text-xs text-slate-600 my-2 leading-relaxed">
+              Docker cluster networking, Kubernetes Pod autoscaling, and Envoy service mesh deployment.
+            </p>
+<div class="w-full bg-slate-200 rounded-full h-1.5 my-2 overflow-hidden">
+<div class="bg-primary-container h-1.5 rounded-full" style="width: 68%;"></div>
+</div>
+<div class="mt-auto pt-3 flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs">
+<span class="text-slate-700 font-medium">Next: Practice Test III</span>
+<span class="text-primary font-semibold">Due in 2 days</span>
+</div>
+<button class="w-full py-2 rounded-lg bg-primary-container hover:bg-primary text-white text-xs font-semibold text-center transition-colors shadow-xs">
+                Continue Module
+              </button>
+</div>
+</div>
+<!-- Phase 3: Next Up -->
+<div class="flex flex-col bg-slate-50 border border-slate-200 p-5 rounded-xl relative shadow-xs">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Phase 03 • Next Horizon</span>
+<span class="material-symbols-outlined text-slate-400 text-base">lock_clock</span>
+</div>
+<h3 class="text-base font-bold text-slate-800">Generative AI Pipeline Engineering</h3>
+<p class="text-xs text-slate-500 my-2 leading-relaxed">
+              vLLM acceleration, LoRA distributed fine-tuning, RAG vector indexing with Milvus &amp; pgvector.
+            </p>
+<div class="mt-auto pt-3 flex items-center justify-between border-t border-slate-200/60">
+<span class="text-xs text-slate-500">Coursera • DeepLearning.AI</span>
+<span class="px-2 py-0.5 rounded bg-slate-200 text-slate-600 text-[11px] font-medium">Pre-Enrolled</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Module 3: Verified Live Internship Stream -->
+<div class="flex flex-col w-full">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-6">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">sensors</span>
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Live Escrow Matching Stream</span>
+</div>
+<h2 class="text-2xl font-bold text-slate-900">Verified Enterprise &amp; Lab Internships</h2>
+<p class="text-sm text-slate-600">Synchronized with university placement cell cryptographic ledger</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-800 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-xs">Filter: Highest Match</button>
+<button class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-medium hover:text-slate-900 transition-colors">Remote Only</button>
+</div>
+</div>
+<!-- Internship Stream Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1: Google DeepMind -->
+<div class="flex flex-col justify-between bg-white border border-slate-200 p-6 rounded-xl shadow-xs hover:border-slate-300 hover:shadow-sm transition-all">
+<div>
+<div class="flex items-start justify-between gap-3 mb-4">
+<div class="flex items-center gap-3">
+<img alt="Google DeepMind" class="w-12 h-12 rounded-lg object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDszv5gNvdKrDtlvjpxnD1E3PfKru3TXimfKEyX_Pzut3dQwQWozPsLdgXweguJNrW3cVbzSsG16Exo0QpBhNw1vVr84TVrxMR7PBoQgnZ1MI6_EY3tTOmg957vj0_x7NdEiGbAGzZna5qc2IrrHfyiiXs74V4yY7mljswWDPzu5-EpcMGMODLM4fDBya_Ot7O3x1xaR37GnJr-btmJ8cBYY7LFDEZmDDhdh6UqGZb9aQh6j9dWBp2-">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900">Google DeepMind</span>
+<span class="text-xs text-slate-500">Mountain View, CA • On-site</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold whitespace-nowrap">
+                  94% Match
+                </span>
+</div>
+<h3 class="text-base font-bold text-slate-900 mb-1">Research Engineer Intern</h3>
+<p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Large-scale distributed gradient synchronization and multi-node transformer training pipelines.
+              </p>
+<div class="flex flex-wrap gap-1.5 mb-4">
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">PyTorch</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">TPU Clusters</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">JAX</span>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-100 flex flex-col gap-2.5">
+<div class="flex items-center gap-1.5 text-emerald-700 text-xs font-medium">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Verified by Uni Placement Cell</span>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-primary-container hover:bg-primary text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs" onclick="applyWithPassport('Google DeepMind')">
+<span class="material-symbols-outlined text-sm">assignment_turned_in</span>
+<span>Apply with Verified Skill Passport</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Stripe -->
+<div class="flex flex-col justify-between bg-white border border-slate-200 p-6 rounded-xl shadow-xs hover:border-slate-300 hover:shadow-sm transition-all">
+<div>
+<div class="flex items-start justify-between gap-3 mb-4">
+<div class="flex items-center gap-3">
+<img alt="Stripe" class="w-12 h-12 rounded-lg object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0bdVFEPgPDqvJtFYnfDpp8h1A06HVZweL0MPGjYkGzmfY21PW9e5gPaZtOE-3fle8507O9WvTeaJYkPC30ebq-XRjFbnnL3Bno2y0jz1nM5GZwDzvcnPsEixzaRn2dIr6R1iF746AOGULH7un15_cSViM42EyRhn7l4sExep8LZK1YfxxhvEcDExOoU2l5wCOlkUvqpjwaLaEGCsZRWExrZeON9VmwPj_-ANvhr89u5y73wik6Bgk">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900">Stripe</span>
+<span class="text-xs text-slate-500">San Francisco, CA • Hybrid</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold whitespace-nowrap">
+                  91% Match
+                </span>
+</div>
+<h3 class="text-base font-bold text-slate-900 mb-1">Systems Infrastructure Intern</h3>
+<p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Core transaction processing engines, zero-downtime database migrations, and consensus partitions.
+              </p>
+<div class="flex flex-wrap gap-1.5 mb-4">
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">Go / Rust</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">Raft Engine</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">PostgreSQL</span>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-100 flex flex-col gap-2.5">
+<div class="flex items-center gap-1.5 text-primary text-xs font-medium">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Direct Enterprise Protocol</span>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-primary-container hover:bg-primary text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs" onclick="applyWithPassport('Stripe')">
+<span class="material-symbols-outlined text-sm">assignment_turned_in</span>
+<span>Apply with Verified Skill Passport</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Stanford Bio-Informatics Lab -->
+<div class="flex flex-col justify-between bg-white border border-slate-200 p-6 rounded-xl shadow-xs hover:border-slate-300 hover:shadow-sm transition-all">
+<div>
+<div class="flex items-start justify-between gap-3 mb-4">
+<div class="flex items-center gap-3">
+<img alt="Stanford Bio-Info Lab" class="w-12 h-12 rounded-lg object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzRcDJJYrMeFyjX9ggEry_SiPgbnKRT4gwjBwpr5ZuTBuX-W1dYq8ZCF6OjgfWpE-SWPB7_vkiA-zpoB2X7FZ5voxx3ZMGCK-Bk4NwIiJPTk9hvOpnB5Qo0UGbyO18XEEjaZTqYSpbrTAHNjiZBY9n8lNqSxoU9MzcIwISYzAmY22E_RYG04CRdwEqzZ_vUUPM3ZEvktbTtOMMP-fzrboQqDLRsP1ULkvp7HJWaIhU0x31dn5vXtJF">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900">Stanford Bio-Info Lab</span>
+<span class="text-xs text-slate-500">Palo Alto, CA • Research</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold whitespace-nowrap">
+                  88% Match
+                </span>
+</div>
+<h3 class="text-base font-bold text-slate-900 mb-1">Student Researcher (Genomic ML)</h3>
+<p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Deep genomic sequence modeling, CRISPR off-target classification, and PyTorch geometric graphs.
+              </p>
+<div class="flex flex-wrap gap-1.5 mb-4">
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">PyG</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">Graph Neural Nets</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-medium">FastAPI</span>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-100 flex flex-col gap-2.5">
+<div class="flex items-center gap-1.5 text-primary text-xs font-medium">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Faculty Sponsored Grant</span>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-primary-container hover:bg-primary text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs" onclick="applyWithPassport('Stanford Bio-Info Lab')">
+<span class="material-symbols-outlined text-sm">assignment_turned_in</span>
+<span>Apply with Verified Skill Passport</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Application Confirmation Toast -->
+<div class="fixed bottom-6 right-6 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-700" id="toastNotification">
+<span class="material-symbols-outlined text-emerald-400">verified</span>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-white" id="toastTitle">Application Submitted</span>
+<span class="text-xs text-slate-300" id="toastMessage">Verified Skill Passport cryptographic proof transmitted.</span>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full bg-white border-t border-slate-200 py-8">
+<div class="max-w-7xl mx-auto px-4 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-5 text-xs text-slate-500">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-sm">verified</span>
+<span>ISO/IEC 27001 Certified Talent Network</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-sm">lock</span>
+<span>Zero-Knowledge Credential Escrow</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Privacy Framework</a>
+<a class="hover:text-primary transition-colors" href="#">Compliance Ledger</a>
+<a class="hover:text-primary transition-colors" href="#">Institutional Registry</a>
+<span class="text-slate-400">© 2025 CareerCue Intelligence Inc.</span>
+</div>
+</div>
+</footer>
+<script>
+    function applyWithPassport(companyName) {
+      const toast = document.getElementById('toastNotification');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMessage = document.getElementById('toastMessage');
+
+      toastTitle.innerText = "Passport Escrow Dispatched";
+      toastMessage.innerText = "Verified Skill Proof transmitted to " + companyName + ".";
+
+      toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      }, 4000);
+    }
+
+    document.getElementById('refreshDiagnosticsBtn')?.addEventListener('click', () => {
+      const btn = document.getElementById('refreshDiagnosticsBtn');
+      btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">sync</span><span>Scanning AST...</span>';
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-sm">check</span><span>Diagnostics Fresh</span>';
+        setTimeout(() => {
+          btn.innerHTML = '<span class="material-symbols-outlined text-base">sync</span><span>Re-run Diagnostics</span>';
+        }, 2000);
+      }, 1000);
+    });
+
+    document.getElementById('sendCopilotQuery')?.addEventListener('click', () => {
+      const input = document.getElementById('copilotQueryInput');
+      if (input && input.value.trim() !== '') {
+        applyWithPassport("Career Advisor AI: Processing '" + input.value.trim() + "'");
+        input.value = '';
+      }
+    });
+
+    document.getElementById('openInterviewBtn')?.addEventListener('click', () => {
+      applyWithPassport('AI Mock Interview Proctor (System Design: Distributed Cache)');
+    });
+
+    document.getElementById('openResumeAtsBtn')?.addEventListener('click', () => {
+      applyWithPassport('ATS Real-Time Parser (Syncing verified credentials)');
+    });
+  </script>
+</body></html>
