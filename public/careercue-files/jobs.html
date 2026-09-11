@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs & Internships - CareerCue</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="jobs.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="brand-link">
+        <img src="logo.svg" alt="CareerCue Logo" class="brand-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="assessment.html">Career Assessment</a></li>
+        <li><a href="jobs.html" class="active">Jobs & Internships</a></li>
+        <li><a href="resume.html">AI Resume Doctor</a></li>
+        <li><a href="interview.html">Mock Interview</a></li>
+        <li><a href="mentors.html">Mentorship</a></li>
+        <li><a href="dashboard.html">My Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="dashboard.html" class="btn btn-outline">My Applications (4)</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="jobs-layout">
+    <header class="jobs-header">
+      <div class="header-inner">
+        <h1>Discover High-Impact Tech Roles</h1>
+        <p>Curated full-time opportunities and internships with transparent salary benchmarks and instant AI match cues.</p>
+
+        <!-- Search & Filters -->
+        <div class="search-bar-box">
+          <input type="text" id="job-search-input" placeholder="Search by role, company, or keyword (e.g. React, Java, Google)..." oninput="filterJobs()">
+          <select id="filter-type" onchange="filterJobs()">
+            <option value="all">All Types</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <div class="jobs-content">
+      <!-- Sidebar Filters -->
+      <aside class="jobs-sidebar">
+        <div class="filter-group">
+          <h4>Category</h4>
+          <label><input type="radio" name="cat" value="all" checked onchange="filterJobs()"> All Engineering</label>
+          <label><input type="radio" name="cat" value="software" onchange="filterJobs()"> Software Engineering</label>
+          <label><input type="radio" name="cat" value="frontend" onchange="filterJobs()"> Frontend & UI</label>
+          <label><input type="radio" name="cat" value="ai" onchange="filterJobs()"> AI & Data Science</label>
+          <label><input type="radio" name="cat" value="cloud" onchange="filterJobs()"> Cloud & DevOps</label>
+        </div>
+
+        <div class="filter-group">
+          <h4>CareerCue Match</h4>
+          <label><input type="checkbox" id="high-match-only" onchange="filterJobs()"> 90%+ Cue Match Only</label>
+        </div>
+      </aside>
+
+      <!-- Jobs Grid -->
+      <section class="jobs-list" id="jobs-container">
+        <!-- Rendered dynamically by jobs.js -->
+      </section>
+    </div>
+  </main>
+
+  <!-- Job Detail / Apply Modal -->
+  <div class="modal-overlay" id="job-modal" style="display: none;">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modal-content">
+        <!-- Injected by jobs.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="jobs.js"></script>
+</body>
+</html>

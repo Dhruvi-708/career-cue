@@ -1,0 +1,212 @@
+/* home.css - Styles specific to CareerCue Home Page */
+.hero-section {
+  padding: 4rem 1.5rem 5rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  color: #0F172A;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: #475569;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.btn-lg {
+  padding: 0.85rem 1.8rem;
+  font-size: 1.05rem;
+  border-radius: 10px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  border-top: 1px solid #CBD5E1;
+  padding-top: 1.75rem;
+}
+
+.stat-number {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* Visual Hero Card */
+.visual-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.visual-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 1.5rem;
+}
+
+.cue-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.match-preview {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: #F8FAFC;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #E2E8F0;
+}
+
+.match-score {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--secondary);
+  background: var(--secondary-light);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.muted-text {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin-top: 0.25rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tags span {
+  background: #EEF2FF;
+  color: #4F46E5;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+}
+
+/* Features Grid */
+.features-section {
+  max-width: 1200px;
+  margin: 5rem auto;
+  padding: 0 1.5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.section-header h2 {
+  font-size: 2.25rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-header p {
+  color: #64748B;
+  font-size: 1.1rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.feature-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  font-size: 2.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card p {
+  color: #64748B;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.feature-link {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}

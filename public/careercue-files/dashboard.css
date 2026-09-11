@@ -1,0 +1,165 @@
+/* dashboard.css */
+.dash-container {
+  max-width: 1200px;
+  margin: 2.5rem auto 5rem;
+  padding: 0 1.5rem;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+}
+
+.stat-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748B;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.stat-val {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+}
+
+.stat-note {
+  font-size: 0.8rem;
+  color: #94A3B8;
+}
+
+.pipeline-header {
+  margin-bottom: 1.5rem;
+}
+
+.pipeline-header h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.pipeline-header p {
+  color: #64748B;
+  font-size: 0.95rem;
+}
+
+/* Kanban Board */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.kanban-col {
+  background: #F1F5F9;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1.5px solid #E2E8F0;
+}
+
+.col-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.col-count {
+  background: #E2E8F0;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.col-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: 250px;
+}
+
+.kanban-item {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease;
+}
+
+.kanban-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.item-company {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.item-role {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.item-meta {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin-bottom: 0.75rem;
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.btn-move {
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.btn-move:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+@media (max-width: 992px) {
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+}

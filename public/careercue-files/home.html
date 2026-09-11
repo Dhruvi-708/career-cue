@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerCue - Intelligent Career Navigation Platform</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="brand-link">
+        <img src="logo.svg" alt="CareerCue Logo" class="brand-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html" class="active">Home</a></li>
+        <li><a href="assessment.html">Career Assessment</a></li>
+        <li><a href="jobs.html">Jobs & Internships</a></li>
+        <li><a href="resume.html">AI Resume Doctor</a></li>
+        <li><a href="interview.html">Mock Interview</a></li>
+        <li><a href="mentors.html">Mentorship</a></li>
+        <li><a href="dashboard.html">My Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="assessment.html" class="btn btn-primary">Take Free Quiz</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="badge badge-primary">✦ Next-Gen Career Discovery</span>
+        <h1 class="hero-title">Chart Your Path From Campus To Your Dream Career</h1>
+        <p class="hero-subtitle">
+          CareerCue analyzes your unique skills, evaluates your readiness, guides your resume with AI, and bridges you directly to top technology openings and FAANG mentors.
+        </p>
+        <div class="hero-buttons">
+          <a href="assessment.html" class="btn btn-primary btn-lg">Start Career Diagnostic &rarr;</a>
+          <a href="jobs.html" class="btn btn-outline btn-lg">Browse Verified Openings</a>
+        </div>
+        
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h3 class="stat-number" id="counter-placements">14,200+</h3>
+            <p class="stat-label">Students Placed</p>
+          </div>
+          <div class="stat-item">
+            <h3 class="stat-number">94.8%</h3>
+            <p class="stat-label">Interview Clearance</p>
+          </div>
+          <div class="stat-item">
+            <h3 class="stat-number">450+</h3>
+            <p class="stat-label">Hiring Partners</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-card">
+          <div class="visual-header">
+            <div class="cue-pulse"></div>
+            <span>CareerCue Live Signal</span>
+          </div>
+          <div class="match-preview">
+            <div class="match-score">96%</div>
+            <div>
+              <strong>Full-Stack Engineer Match</strong>
+              <p class="muted-text">Highest compatibility with Google, Razorpay, Atlassian</p>
+            </div>
+          </div>
+          <div class="skill-tags">
+            <span>React.js</span>
+            <span>TypeScript</span>
+            <span>Node.js</span>
+            <span>System Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Core Features / Pillars -->
+  <section class="features-section">
+    <div class="section-header">
+      <span class="badge badge-primary">Integrated Ecosystem</span>
+      <h2>Everything You Need To Secure Your Next Role</h2>
+      <p>Six powerful connected modules designed to guide you step-by-step.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" onclick="window.location.href='assessment.html'">
+        <div class="feature-icon">🎯</div>
+        <h3>Career Assessment</h3>
+        <p>Pinpoint your optimal career path with our 4-step diagnostic skill and interest matrix.</p>
+        <a href="assessment.html" class="feature-link">Take Quiz &rarr;</a>
+      </div>
+
+      <div class="feature-card" onclick="window.location.href='jobs.html'">
+        <div class="feature-icon">💼</div>
+        <h3>Curated Job Board</h3>
+        <p>Explore high-match internships and full-time roles with transparent CTCs and direct 1-click apply.</p>
+        <a href="jobs.html" class="feature-link">View Jobs &rarr;</a>
+      </div>
+
+      <div class="feature-card" onclick="window.location.href='resume.html'">
+        <div class="feature-icon">📄</div>
+        <h3>AI Resume Doctor</h3>
+        <p>Audit your resume against ATS algorithms and enhance bullet points with quantified impact cues.</p>
+        <a href="resume.html" class="feature-link">Optimize Resume &rarr;</a>
+      </div>
+
+      <div class="feature-card" onclick="window.location.href='interview.html'">
+        <div class="feature-icon">🎙️</div>
+        <h3>AI Interview Studio</h3>
+        <p>Practice realistic role-based technical and behavioral questions with instant AI evaluation.</p>
+        <a href="interview.html" class="feature-link">Practice Interview &rarr;</a>
+      </div>
+
+      <div class="feature-card" onclick="window.location.href='mentors.html'">
+        <div class="feature-icon">🤝</div>
+        <h3>1-on-1 Mentorship</h3>
+        <p>Connect directly with senior engineers and hiring managers from Google, Microsoft, and Uber.</p>
+        <a href="mentors.html" class="feature-link">Book Mentor &rarr;</a>
+      </div>
+
+      <div class="feature-card" onclick="window.location.href='dashboard.html'">
+        <div class="feature-icon">📊</div>
+        <h3>Application Tracker</h3>
+        <p>Keep every interview stage organized in a visual Kanban board with interview schedule reminders.</p>
+        <a href="dashboard.html" class="feature-link">Open Tracker &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <img src="logo.svg" alt="CareerCue" class="brand-logo-img" style="filter: brightness(0) invert(1); margin-bottom: 1rem;">
+        <p>CareerCue is the premier career acceleration platform bridging talented graduates and engineers to top global technology employers.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="assessment.html">Career Assessment</a></li>
+          <li><a href="jobs.html">Jobs & Internships</a></li>
+          <li><a href="resume.html">AI Resume Builder</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Preparation</h4>
+        <ul>
+          <li><a href="interview.html">Mock Interview</a></li>
+          <li><a href="mentors.html">Verified Mentors</a></li>
+          <li><a href="dashboard.html">Pipeline Tracker</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact & Support</h4>
+        <ul>
+          <li><a href="mailto:support@careercue.com">support@careercue.com</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 CareerCue Platform. All rights reserved.</p>
+      <p>Crafted for Student & Professional Success</p>
+    </div>
+  </footer>
+
+  <script src="home.js"></script>
+</body>
+</html>

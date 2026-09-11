@@ -1,0 +1,118 @@
+/* mentors.css */
+.mentors-container {
+  max-width: 1200px;
+  margin: 3rem auto 5rem;
+  padding: 0 1.5rem;
+}
+
+.mentors-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.mentors-header h1 {
+  font-size: 2.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.mentors-header p {
+  color: var(--dark-muted);
+  font-size: 1.1rem;
+}
+
+.mentors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.mentor-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.mentor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+.mentor-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 2px solid var(--border);
+}
+
+.mentor-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.mentor-role {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.mentor-company {
+  color: #64748B;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.mentor-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #D97706;
+  margin-bottom: 1rem;
+}
+
+.mentor-bio {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.specialty-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.spec-tag {
+  background: #F1F5F9;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.mentor-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mentor-rate {
+  font-weight: 700;
+  color: #059669;
+  font-size: 0.9rem;
+}

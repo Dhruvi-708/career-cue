@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Mock Interview Studio - CareerCue</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="interview.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="brand-link">
+        <img src="logo.svg" alt="CareerCue Logo" class="brand-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="assessment.html">Career Assessment</a></li>
+        <li><a href="jobs.html">Jobs & Internships</a></li>
+        <li><a href="resume.html">AI Resume Doctor</a></li>
+        <li><a href="interview.html" class="active">Mock Interview</a></li>
+        <li><a href="mentors.html">Mentorship</a></li>
+        <li><a href="dashboard.html">My Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="badge badge-primary">Practice Mode</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="interview-container">
+    <header class="interview-header">
+      <span class="badge badge-primary">AI Evaluation Sandbox</span>
+      <h1>Real-Time Technical & Behavioral Interview Prep</h1>
+      <p>Simulate FAANG and high-growth unicorn interview rounds. Get instant feedback on precision, depth, and tone.</p>
+      
+      <!-- Role Tabs -->
+      <div class="role-pills">
+        <button class="role-pill active" onclick="switchRole('frontend', this)">Frontend Engineer</button>
+        <button class="role-pill" onclick="switchRole('backend', this)">Backend Distributed Systems</button>
+        <button class="role-pill" onclick="switchRole('fullstack', this)">Full-Stack Developer</button>
+        <button class="role-pill" onclick="switchRole('product', this)">Product & Behavioral</button>
+      </div>
+    </header>
+
+    <div class="interview-workspace card">
+      <!-- Question Prompt Box -->
+      <div class="question-box">
+        <div class="q-meta">
+          <span class="badge badge-primary" id="q-role-badge">Frontend Engineer</span>
+          <span class="q-difficulty">Difficulty: Intermediate</span>
+        </div>
+        <h2 id="q-text">Explain the Virtual DOM in React, and how React reconciles state updates into browser DOM changes?</h2>
+        <div class="q-hint">
+          <strong>💡 CareerCue Cue:</strong> <span id="q-hint-text">Focus on reconciliation, the heuristic diffing algorithm O(n), Fiber architecture, and render batching.</span>
+        </div>
+      </div>
+
+      <!-- Candidate Response Area -->
+      <div class="response-section">
+        <div class="response-toolbar">
+          <label>Your Answer</label>
+          <div class="recording-indicator" id="rec-status" style="display: none;">
+            <span class="pulse-dot"></span> Listening & transcribing live audio...
+          </div>
+        </div>
+
+        <textarea id="answer-input" rows="6" class="form-control" placeholder="Type your response here or click 'Simulate Voice Answer' to speak..."></textarea>
+
+        <div class="action-bar">
+          <button class="btn btn-outline" id="btn-voice" onclick="toggleVoiceSim()">🎙️ Simulate Voice Input</button>
+          <button class="btn btn-primary btn-lg" onclick="evaluateAnswer()">Analyze with AI Cue Engine &rarr;</button>
+        </div>
+      </div>
+
+      <!-- AI Evaluation Feedback Panel -->
+      <div class="feedback-panel" id="feedback-panel" style="display: none;">
+        <div class="feedback-header">
+          <h3>⚡ AI Evaluation & Readiness Score</h3>
+          <span class="badge badge-success">High Technical Competence</span>
+        </div>
+
+        <div class="score-cards-row">
+          <div class="score-card">
+            <span class="score-val" id="score-clarity">94%</span>
+            <span class="score-name">Conceptual Clarity</span>
+          </div>
+          <div class="score-card">
+            <span class="score-val" id="score-depth">91%</span>
+            <span class="score-name">Technical Depth</span>
+          </div>
+          <div class="score-card">
+            <span class="score-val" id="score-tone">96%</span>
+            <span class="score-name">Delivery Tone</span>
+          </div>
+        </div>
+
+        <div class="feedback-details">
+          <div class="fb-item">
+            <strong>✅ Strong Points Identified:</strong>
+            <p id="fb-positives">Accurately contrasted reconciliation heuristics against direct DOM mutations. Great reference to browser layout thrashing and batch execution.</p>
+          </div>
+          <div class="fb-item">
+            <strong>🎯 High-Value Interview Cue:</strong>
+            <p id="fb-improvements">To turn this from a strong answer into a staff-level answer, mention React 18 Concurrent features (like startTransition and Suspense) and time-slicing within the Fiber work loop.</p>
+          </div>
+        </div>
+
+        <div class="fb-next">
+          <button class="btn btn-outline" onclick="loadNextQuestion()">Next Question &rarr;</button>
+          <a href="mentors.html" class="btn btn-primary">Book 1-on-1 Mock with FAANG Mentor</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="interview.js"></script>
+</body>
+</html>

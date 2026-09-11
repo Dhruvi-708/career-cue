@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Resume Doctor & ATS Optimizer - CareerCue</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="resume.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="brand-link">
+        <img src="logo.svg" alt="CareerCue Logo" class="brand-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="assessment.html">Career Assessment</a></li>
+        <li><a href="jobs.html">Jobs & Internships</a></li>
+        <li><a href="resume.html" class="active">AI Resume Doctor</a></li>
+        <li><a href="interview.html">Mock Interview</a></li>
+        <li><a href="mentors.html">Mentorship</a></li>
+        <li><a href="dashboard.html">My Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-primary" onclick="window.print()">Print / Export PDF</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="resume-workspace">
+    <!-- Left Editor -->
+    <div class="editor-pane card">
+      <div class="editor-header">
+        <h2>Resume Content & AI Doctor</h2>
+        <p>Edit your details and use CareerCue AI to transform passive bullets into high-impact metrics.</p>
+      </div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="res-name" class="form-control" value="Aarav Sharma" oninput="updatePreview()">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="res-email" class="form-control" value="aarav.sharma@example.com" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Target Role</label>
+          <input type="text" id="res-role" class="form-control" value="Software Development Engineer" oninput="updatePreview()">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Professional Summary</label>
+        <textarea id="res-summary" class="form-control" rows="3" oninput="updatePreview()">High-performance software engineer with strong expertise in Java distributed microservices, React, and AWS cloud systems. Proven track record of engineering low-latency APIs and optimizing transactional throughput.</textarea>
+      </div>
+
+      <div class="form-group">
+        <div class="label-with-cue">
+          <label>Recent Project / Work Experience Bullet</label>
+          <button class="btn-ai-cue" onclick="improveBulletWithAI()">⚡ Fix with CareerCue AI</button>
+        </div>
+        <textarea id="res-bullet" class="form-control" rows="3" oninput="updatePreview()">Built user authentication and backend APIs for payments platform using Java and Spring Boot.</textarea>
+        <span class="tip-text">Click "Fix with CareerCue AI" to add measurable impact and action verbs.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Technical Skills (comma separated)</label>
+        <input type="text" id="res-skills" class="form-control" value="Java, Spring Boot, React, TypeScript, PostgreSQL, Docker, AWS, Redis, Git" oninput="updatePreview()">
+      </div>
+    </div>
+
+    <!-- Right Live Preview & ATS Doctor -->
+    <div class="preview-pane">
+      <!-- ATS Score Widget -->
+      <div class="ats-card card">
+        <div class="ats-left">
+          <div class="ats-dial" id="ats-score-display">89</div>
+          <div>
+            <h3>CareerCue ATS Audit Score</h3>
+            <p style="color: #64748B; font-size: 0.85rem;">Optimized for Tier-1 Tech Applicant Tracking Systems</p>
+          </div>
+        </div>
+        <div class="ats-checks">
+          <span class="check-tag">✓ Quantified Metrics</span>
+          <span class="check-tag">✓ Action Verb Impact</span>
+          <span class="check-tag">✓ Keyword Density</span>
+        </div>
+      </div>
+
+      <!-- Live Printable Sheet Preview -->
+      <div class="resume-sheet" id="print-sheet">
+        <header class="sheet-header">
+          <h1 id="preview-name">Aarav Sharma</h1>
+          <p id="preview-contact">aarav.sharma@example.com &bull; +91 98765 43210 &bull; Bangalore, India</p>
+          <p class="target-title" id="preview-role">Software Development Engineer</p>
+        </header>
+
+        <section class="sheet-section">
+          <h3>Summary</h3>
+          <p id="preview-summary">High-performance software engineer with strong expertise in Java distributed microservices, React, and AWS cloud systems.</p>
+        </section>
+
+        <section class="sheet-section">
+          <h3>Experience & Projects</h3>
+          <div class="exp-item">
+            <div class="exp-head">
+              <strong>Core Engineering Associate &bull; TechNova Labs</strong>
+              <span>2024 - Present</span>
+            </div>
+            <ul class="bullet-list">
+              <li id="preview-bullet">Architected high-throughput REST APIs handling 1.8M daily transactions, slashing checkout latency by 32% using Redis caching.</li>
+              <li>Engineered zero-downtime CI/CD container workflows reducing deployment cycle from 45 mins to 6 mins.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="sheet-section">
+          <h3>Skills & Tools</h3>
+          <p id="preview-skills">Java, Spring Boot, React, TypeScript, PostgreSQL, Docker, AWS, Redis, Git</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="resume.js"></script>
+</body>
+</html>

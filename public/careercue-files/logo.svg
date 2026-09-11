@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <defs>
+    <linearGradient id="cueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="50%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon Mark: Compass Cue -->
+  <rect x="4" y="6" width="36" height="36" rx="10" fill="url(#cueGrad)"/>
+  <path d="M16 28L28 16M28 16H20M28 16V24" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="17" cy="27" r="2" fill="#FDE047"/>
+  
+  <!-- Typography -->
+  <text x="48" y="31" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" font-size="22" fill="#0F172A" letter-spacing="-0.5">Career<tspan fill="#4F46E5">Cue</tspan></text>
+</svg>

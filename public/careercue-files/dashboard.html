@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Tracker & Student Dashboard - CareerCue</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="brand-link">
+        <img src="logo.svg" alt="CareerCue Logo" class="brand-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="assessment.html">Career Assessment</a></li>
+        <li><a href="jobs.html">Jobs & Internships</a></li>
+        <li><a href="resume.html">AI Resume Doctor</a></li>
+        <li><a href="interview.html">Mock Interview</a></li>
+        <li><a href="mentors.html">Mentorship</a></li>
+        <li><a href="dashboard.html" class="active">My Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" onclick="openNewAppModal()">+ Track New Application</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dash-container">
+    <!-- Top Stats -->
+    <section class="stats-row">
+      <div class="stat-card card">
+        <span class="stat-title">Active Applications</span>
+        <div class="stat-val" id="stat-total">4</div>
+        <span class="stat-note">Across 4 technology firms</span>
+      </div>
+      <div class="stat-card card">
+        <span class="stat-title">Interviews In Flight</span>
+        <div class="stat-val" style="color: #4F46E5;">2</div>
+        <span class="stat-note">Next: Google DSA on Friday</span>
+      </div>
+      <div class="stat-card card">
+        <span class="stat-title">Offers Secured</span>
+        <div class="stat-val" style="color: #10B981;">1</div>
+        <span class="stat-note">CRED - ₹15 LPA</span>
+      </div>
+      <div class="stat-card card">
+        <span class="stat-title">CareerCue Readiness</span>
+        <div class="stat-val" style="color: #6366F1;">92%</div>
+        <span class="stat-note">ATS & Interview Certified</span>
+      </div>
+    </section>
+
+    <!-- Kanban Application Pipeline -->
+    <header class="pipeline-header">
+      <h2>Job Application Pipeline Tracker</h2>
+      <p>Organize and advance your job applications from initial submission to final offer.</p>
+    </header>
+
+    <div class="kanban-board">
+      <!-- Applied Column -->
+      <div class="kanban-col">
+        <div class="col-head">
+          <span class="col-title">Applied</span>
+          <span class="col-count" id="count-applied">1</span>
+        </div>
+        <div class="col-cards" id="col-applied">
+          <!-- Populated by dashboard.js -->
+        </div>
+      </div>
+
+      <!-- Screening Column -->
+      <div class="kanban-col">
+        <div class="col-head">
+          <span class="col-title">Screening</span>
+          <span class="col-count" id="count-screening">1</span>
+        </div>
+        <div class="col-cards" id="col-screening"></div>
+      </div>
+
+      <!-- Technical Interview Column -->
+      <div class="kanban-col">
+        <div class="col-head">
+          <span class="col-title">Technical Interview</span>
+          <span class="col-count" id="count-technical">1</span>
+        </div>
+        <div class="col-cards" id="col-technical"></div>
+      </div>
+
+      <!-- Offer Column -->
+      <div class="kanban-col">
+        <div class="col-head">
+          <span class="col-title">Offer Received</span>
+          <span class="col-count" id="count-offer">1</span>
+        </div>
+        <div class="col-cards" id="col-offer"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Application Modal -->
+  <div class="modal-overlay" id="add-modal" style="display: none;">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeNewAppModal()">&times;</button>
+      <h2>Track New Application</h2>
+      <p style="color: #64748B; margin-bottom: 1.5rem;">Add an external or internal job application to your CareerCue pipeline.</p>
+
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label>Company Name</label>
+        <input type="text" id="add-company" class="form-control" placeholder="e.g. Amazon, Netflix, Uber">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label>Role / Position Title</label>
+        <input type="text" id="add-role" class="form-control" placeholder="e.g. SDE-1, Cloud Engineer">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label>Initial Pipeline Status</label>
+        <select id="add-status" class="form-control">
+          <option value="Applied">Applied</option>
+          <option value="Screening">Screening</option>
+          <option value="Technical">Technical Interview</option>
+          <option value="Offer">Offer Received</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label>Expected CTC / Salary</label>
+        <input type="text" id="add-salary" class="form-control" placeholder="e.g. ₹20 LPA">
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+        <button class="btn btn-outline" onclick="closeNewAppModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveNewApplication()">Save Application &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

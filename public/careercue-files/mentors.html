@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industry Mentorship & Guidance - CareerCue</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="mentors.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="brand-link">
+        <img src="logo.svg" alt="CareerCue Logo" class="brand-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="assessment.html">Career Assessment</a></li>
+        <li><a href="jobs.html">Jobs & Internships</a></li>
+        <li><a href="resume.html">AI Resume Doctor</a></li>
+        <li><a href="interview.html">Mock Interview</a></li>
+        <li><a href="mentors.html" class="active">Mentorship</a></li>
+        <li><a href="dashboard.html">My Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="dashboard.html" class="btn btn-outline">My Sessions</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="mentors-container">
+    <header class="mentors-header">
+      <span class="badge badge-primary">FAANG & Unicorn Mentorship</span>
+      <h1>Learn 1-on-1 From Senior Engineers & Leaders</h1>
+      <p>Book real 1-on-1 mock interviews, architectural case-study reviews, and career roadmap sessions with industry veterans.</p>
+    </header>
+
+    <div class="mentors-grid" id="mentors-list">
+      <!-- Injected by mentors.js -->
+    </div>
+  </main>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="booking-modal" style="display: none;">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+      <div id="booking-content">
+        <!-- Injected by mentors.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="mentors.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Diagnostic Assessment - CareerCue</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="assessment.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="brand-link">
+        <img src="logo.svg" alt="CareerCue Logo" class="brand-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="assessment.html" class="active">Career Assessment</a></li>
+        <li><a href="jobs.html">Jobs & Internships</a></li>
+        <li><a href="resume.html">AI Resume Doctor</a></li>
+        <li><a href="interview.html">Mock Interview</a></li>
+        <li><a href="mentors.html">Mentorship</a></li>
+        <li><a href="dashboard.html">My Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="dashboard.html" class="btn btn-outline">My Progress</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="assessment-container">
+    <div class="assessment-header">
+      <span class="badge badge-primary">Skill & Trajectory Engine</span>
+      <h1>Comprehensive Career Cue Assessment</h1>
+      <p>Discover which tech career trajectory matches your logical strengths, preferences, and long-term ambition.</p>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-bar-container">
+      <div class="progress-steps">
+        <div class="step-indicator active" id="step-1-ind">1. Focus Domain</div>
+        <div class="step-indicator" id="step-2-ind">2. Problem Solving</div>
+        <div class="step-indicator" id="step-3-ind">3. Experience & Goals</div>
+        <div class="step-indicator" id="step-4-ind">4. Results</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
+      </div>
+    </div>
+
+    <!-- Interactive Card -->
+    <div class="assessment-card card">
+      <!-- Question Section 1 -->
+      <div class="quiz-step" id="quiz-step-1">
+        <h3>Step 1: Which engineering domain energizes you the most?</h3>
+        <p class="step-sub">Select the area you naturally gravitate toward when building software:</p>
+        
+        <div class="options-grid">
+          <label class="option-card">
+            <input type="radio" name="domain" value="frontend" checked>
+            <div class="option-content">
+              <span class="opt-icon">🎨</span>
+              <strong>Frontend & Web Experience</strong>
+              <p>Visual fidelity, React/Next.js, animations, responsive design systems, accessibility.</p>
+            </div>
+          </label>
+
+          <label class="option-card">
+            <input type="radio" name="domain" value="backend">
+            <div class="option-content">
+              <span class="opt-icon">⚡</span>
+              <strong>Backend & Distributed Systems</strong>
+              <p>Scalable APIs, Java/Go, database indexing, caching layers, high concurrency.</p>
+            </div>
+          </label>
+
+          <label class="option-card">
+            <input type="radio" name="domain" value="ai">
+            <div class="option-content">
+              <span class="opt-icon">🧠</span>
+              <strong>Artificial Intelligence & ML</strong>
+              <p>LLMs, neural networks, PyTorch, statistical modeling, data pipelines.</p>
+            </div>
+          </label>
+
+          <label class="option-card">
+            <input type="radio" name="domain" value="cloud">
+            <div class="option-content">
+              <span class="opt-icon">☁️</span>
+              <strong>Cloud DevOps & SRE</strong>
+              <p>Kubernetes, Docker, CI/CD automation, Terraform, 99.99% system resilience.</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="step-actions">
+          <div></div>
+          <button class="btn btn-primary" onclick="goToStep(2)">Next: Problem Solving &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Question Section 2 -->
+      <div class="quiz-step" id="quiz-step-2" style="display: none;">
+        <h3>Step 2: How do you prefer to tackle complex engineering problems?</h3>
+        <p class="step-sub">Your cognitive preference dictates your best organizational role:</p>
+        
+        <div class="options-grid">
+          <label class="option-card">
+            <input type="radio" name="problemsolving" value="architectural" checked>
+            <div class="option-content">
+              <span class="opt-icon">📐</span>
+              <strong>Architectural Deep-Dives</strong>
+              <p>Drafting technical specs, evaluating trade-offs between latency and throughput.</p>
+            </div>
+          </label>
+
+          <label class="option-card">
+            <input type="radio" name="problemsolving" value="product">
+            <div class="option-content">
+              <span class="opt-icon">💡</span>
+              <strong>User-Centric Rapid Prototyping</strong>
+              <p>Direct interaction with users, shipping MVPs quickly, testing UX hypotheses.</p>
+            </div>
+          </label>
+
+          <label class="option-card">
+            <input type="radio" name="problemsolving" value="algorithmic">
+            <div class="option-content">
+              <span class="opt-icon">🔬</span>
+              <strong>Algorithmic Optimization</strong>
+              <p>Benchmarking execution times, memory complexity, mathematical modeling.</p>
+            </div>
+          </label>
+
+          <label class="option-card">
+            <input type="radio" name="problemsolving" value="infrastructure">
+            <div class="option-content">
+              <span class="opt-icon">🛡️</span>
+              <strong>System Hardening & Automation</strong>
+              <p>Eliminating human error through scripts, security scanning, zero-downtime rollouts.</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn btn-outline" onclick="goToStep(1)">&larr; Back</button>
+          <button class="btn btn-primary" onclick="goToStep(3)">Next: Experience & Goals &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Question Section 3 -->
+      <div class="quiz-step" id="quiz-step-3" style="display: none;">
+        <h3>Step 3: What is your current status and target compensation goal?</h3>
+        <p class="step-sub">This calibrates our company tier and salary expectations:</p>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Current Status</label>
+            <select id="user-status" class="form-control">
+              <option value="fresher">College Student / Fresher (2026/2027 grad)</option>
+              <option value="entry">Early Career (0 - 2 years experience)</option>
+              <option value="mid">Experienced Professional (2 - 5 years)</option>
+              <option value="switch">Career Switcher into Tech</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Target Annual Compensation (LPA / $)</label>
+            <select id="user-ctc" class="form-control">
+              <option value="12-18">₹12 - ₹18 LPA (Tier 1 Startups)</option>
+              <option value="18-28" selected>₹18 - ₹28 LPA (Product MNCs / Unicorns)</option>
+              <option value="30+">₹30+ LPA (FAANG / US Remote)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Primary Tech Proficiency</label>
+            <input type="text" id="user-tech" class="form-control" value="Java, Spring Boot, React, SQL" placeholder="e.g. React, Python, Java, Docker">
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn btn-outline" onclick="goToStep(2)">&larr; Back</button>
+          <button class="btn btn-success btn-lg" onclick="calculateResults()">Generate My Career Cue Profile &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Results -->
+      <div class="quiz-step" id="quiz-step-4" style="display: none;">
+        <div class="results-banner">
+          <div class="score-circle">
+            <span class="score-num">94%</span>
+            <span class="score-sub">Fit Score</span>
+          </div>
+          <div class="banner-info">
+            <span class="badge badge-success">Top Trajectory Identified</span>
+            <h2 id="result-title">Full-Stack Cloud Systems Engineer</h2>
+            <p id="result-desc">Your logical profile combines high systemic reasoning with full-stack adaptability. You have high alignment with high-growth fintech, cloud platforms, and tier-1 product organizations.</p>
+          </div>
+        </div>
+
+        <div class="results-grid">
+          <div class="res-box">
+            <h4>Domain Readiness</h4>
+            <div class="bar-stat">
+              <span>System Design & Architecture</span>
+              <div class="bar-line"><div style="width: 92%;"></div></div>
+            </div>
+            <div class="bar-stat">
+              <span>Data Structures & Algorithmic Speed</span>
+              <div class="bar-line"><div style="width: 86%;"></div></div>
+            </div>
+            <div class="bar-stat">
+              <span>Modern Frontend Execution</span>
+              <div class="bar-line"><div style="width: 88%;"></div></div>
+            </div>
+          </div>
+
+          <div class="res-box">
+            <h4>Recommended 12-Week Roadmap</h4>
+            <ul class="roadmap-list">
+              <li><strong>Weeks 1-4:</strong> Master concurrency, thread safety & Redis caching patterns.</li>
+              <li><strong>Weeks 5-8:</strong> Build and deploy a multi-tenant microservice on Kubernetes.</li>
+              <li><strong>Weeks 9-12:</strong> Complete 20 mock interview scenarios and FAANG peer reviews.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="results-cta">
+          <a href="jobs.html" class="btn btn-primary btn-lg">View Matching Openings (28 Jobs) &rarr;</a>
+          <a href="resume.html" class="btn btn-outline btn-lg">Optimize My Resume for This Track</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assessment.js"></script>
+</body>
+</html>
