@@ -1,0 +1,6 @@
+{
+  "name": "CareerCue",
+  "description": "Comprehensive career navigation platform featuring dynamic skills-based Cue Test revision, verified skill-gap bridging courses, 4 dedicated portals (Students, Companies, Academia, Admin), live placement ecosystem metrics, and AI resume diagnostic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
